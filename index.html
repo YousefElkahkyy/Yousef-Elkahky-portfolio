@@ -1,1427 +1,1884 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Yousef El-Kahky Portfolio</title>
-
-  <!-- --------- Scroll Reveal Library --------- -->
-  <script src="https://unpkg.com/scrollreveal"></script>
-
-  <!-- --------- Swiper Library --------- -->
-  <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css" />
-
-  <!-- --------- Unicons Icons --------- -->
+  <title>Youssef El-Kahky | AML & Fraud Analyst</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=IBM+Plex+Mono:wght@400;500&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+  <style>
+    /* ===== DESIGN TOKENS ===== */
+    :root {
+      --navy:       #060d1a;
+      --navy-2:     #0b1628;
+      --navy-3:     #0f2040;
+      --teal:       #00e5c3;
+      --teal-dim:   #00b89c;
+      --teal-glow:  rgba(0,229,195,.15);
+      --amber:      #f5a623;
+      --red-alert:  #ff4d6d;
+      --text:       #c8d8f0;
+      --text-muted: #607b9a;
+      --white:      #f0f7ff;
+      --border:     rgba(0,229,195,.12);
+      --font-disp:  'DM Serif Display', serif;
+      --font-body:  'Outfit', sans-serif;
+      --font-mono:  'IBM Plex Mono', monospace;
+      --section-pad: 6rem;
+      --radius:     12px;
+    }
 
-  <!-- --------- CSS Files --------- -->
-  <link rel="stylesheet" href="assets/CSS/Css.css">
+    /* ===== RESET ===== */
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-body);
+      background: var(--navy);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
+    ::selection { background: var(--teal); color: var(--navy); }
+
+    /* ===== SCROLLBAR ===== */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--navy-2); }
+    ::-webkit-scrollbar-thumb { background: var(--teal-dim); border-radius: 3px; }
+
+    /* ===== NOISE OVERLAY ===== */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 9999; opacity: .4;
+    }
+
+    /* ===== GRID BACKGROUND ===== */
+    body::after {
+      content: '';
+      position: fixed; inset: 0;
+      background-image:
+        linear-gradient(rgba(0,229,195,.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,229,195,.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none; z-index: 0;
+    }
+
+    /* ===== CONTAINER ===== */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ===== BUTTONS ===== */
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: .5rem;
+      padding: .75rem 1.75rem;
+      background: var(--teal);
+      color: var(--navy);
+      font-family: var(--font-body);
+      font-weight: 600; font-size: .9rem;
+      border-radius: var(--radius);
+      border: none; cursor: pointer;
+      transition: .25s;
+      text-transform: uppercase; letter-spacing: .5px;
+    }
+    .btn-primary:hover { background: var(--teal-dim); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,229,195,.3); }
+
+    .btn-outline {
+      display: inline-flex; align-items: center; gap: .5rem;
+      padding: .75rem 1.75rem;
+      background: transparent;
+      color: var(--teal);
+      font-family: var(--font-body);
+      font-weight: 600; font-size: .9rem;
+      border-radius: var(--radius);
+      border: 1.5px solid var(--teal);
+      cursor: pointer; transition: .25s;
+      text-transform: uppercase; letter-spacing: .5px;
+    }
+    .btn-outline:hover { background: var(--teal-glow); transform: translateY(-2px); }
+
+    /* ===== SECTION LABEL ===== */
+    .section-tag {
+      display: inline-flex; align-items: center; gap: .5rem;
+      font-family: var(--font-mono);
+      font-size: .72rem; color: var(--teal);
+      text-transform: uppercase; letter-spacing: 2px;
+      margin-bottom: 1rem;
+    }
+    .section-tag::before {
+      content: '//'; opacity: .5;
+    }
+
+    .section-title {
+      font-family: var(--font-disp);
+      font-size: clamp(2rem, 4vw, 3rem);
+      color: var(--white);
+      line-height: 1.2;
+      margin-bottom: 1rem;
+    }
+
+    .section-desc {
+      font-size: 1rem; color: var(--text-muted);
+      max-width: 600px; line-height: 1.8;
+    }
+
+    /* ===== NAVBAR ===== */
+    header {
+      position: fixed; top: 0; left: 0; width: 100%; z-index: 100;
+      transition: .3s;
+    }
+    header.scrolled {
+      background: rgba(6,13,26,.9);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+    nav {
+      display: flex; align-items: center; justify-content: space-between;
+      height: 80px;
+    }
+    .logo {
+      font-family: var(--font-mono);
+      font-size: 1rem; font-weight: 500;
+      color: var(--white);
+      letter-spacing: 1px;
+    }
+    .logo span { color: var(--teal); }
+
+    .nav-links {
+      display: flex; gap: 2rem; align-items: center;
+    }
+    .nav-link {
+      font-size: .82rem; font-weight: 500;
+      color: var(--text-muted);
+      text-transform: uppercase; letter-spacing: 1px;
+      transition: .2s;
+      position: relative;
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute; bottom: -4px; left: 0;
+      width: 0; height: 1px;
+      background: var(--teal);
+      transition: .2s;
+    }
+    .nav-link:hover { color: var(--white); }
+    .nav-link:hover::after { width: 100%; }
+
+    .nav-cta {
+      font-size: .8rem; padding: .55rem 1.25rem;
+    }
+
+    /* Hamburger */
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+    .hamburger span { width: 24px; height: 2px; background: var(--white); transition: .3s; border-radius: 2px; }
+
+    /* ===== HERO ===== */
+    .hero {
+      min-height: 100vh;
+      display: flex; align-items: center;
+      padding: 120px 0 80px;
+      position: relative;
+    }
+    .hero-bg-glow {
+      position: absolute;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(0,229,195,.07) 0%, transparent 70%);
+      top: 50%; right: -100px;
+      transform: translateY(-50%);
+      pointer-events: none;
+    }
+    .hero-bg-glow2 {
+      position: absolute;
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(245,166,35,.05) 0%, transparent 70%);
+      bottom: 10%; left: -50px;
+      pointer-events: none;
+    }
+
+    .hero-content {
+      display: grid; grid-template-columns: 1fr 1fr;
+      align-items: center; gap: 4rem;
+    }
+
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: .6rem;
+      padding: .4rem 1rem;
+      background: rgba(0,229,195,.08);
+      border: 1px solid var(--border);
+      border-radius: 50px;
+      font-family: var(--font-mono);
+      font-size: .72rem; color: var(--teal);
+      letter-spacing: 1px;
+      margin-bottom: 1.5rem;
+    }
+    .hero-badge-dot {
+      width: 7px; height: 7px;
+      background: var(--teal);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%,100% { opacity: 1; transform: scale(1); }
+      50% { opacity: .5; transform: scale(1.4); }
+    }
+
+    .hero-title {
+      font-family: var(--font-disp);
+      font-size: clamp(2.8rem, 5vw, 4.2rem);
+      color: var(--white);
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+    }
+    .hero-title em {
+      font-style: italic;
+      color: var(--teal);
+    }
+
+    .hero-desc {
+      font-size: 1rem; color: var(--text-muted);
+      line-height: 1.8; margin-bottom: 2.5rem;
+    }
+
+    .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+    .hero-stats {
+      display: flex; gap: 2rem; margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+    }
+    .hero-stat-num {
+      font-family: var(--font-mono);
+      font-size: 1.8rem; font-weight: 500;
+      color: var(--teal);
+    }
+    .hero-stat-label {
+      font-size: .78rem; color: var(--text-muted);
+      text-transform: uppercase; letter-spacing: 1px;
+    }
+
+    /* Hero visual panel */
+    .hero-visual {
+      position: relative;
+    }
+    .hero-card {
+      background: var(--navy-2);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--teal), transparent);
+    }
+    .card-header {
+      display: flex; align-items: center; gap: .75rem;
+      margin-bottom: 1.5rem;
+    }
+    .card-dot { width: 10px; height: 10px; border-radius: 50%; }
+    .d-red { background: #ff5f57; }
+    .d-yellow { background: #febc2e; }
+    .d-green { background: #28c840; }
+
+    .terminal-line {
+      font-family: var(--font-mono);
+      font-size: .8rem;
+      color: var(--text-muted);
+      margin-bottom: .6rem;
+      line-height: 1.6;
+    }
+    .terminal-line .t-green { color: #28c840; }
+    .terminal-line .t-teal { color: var(--teal); }
+    .terminal-line .t-amber { color: var(--amber); }
+    .terminal-line .t-red { color: var(--red-alert); }
+    .terminal-line .t-dim { opacity: .4; }
+    .terminal-line .cursor {
+      display: inline-block;
+      width: 8px; height: 14px;
+      background: var(--teal);
+      animation: blink 1s step-end infinite;
+      vertical-align: text-bottom;
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+    .risk-meters { margin-top: 1.5rem; }
+    .risk-item {
+      display: flex; align-items: center; gap: 1rem;
+      margin-bottom: .8rem;
+    }
+    .risk-label {
+      font-family: var(--font-mono);
+      font-size: .7rem; color: var(--text-muted);
+      width: 120px; flex-shrink: 0;
+    }
+    .risk-bar {
+      flex: 1; height: 4px;
+      background: rgba(255,255,255,.07);
+      border-radius: 4px; overflow: hidden;
+    }
+    .risk-fill {
+      height: 100%; border-radius: 4px;
+      animation: fillBar 2s ease-out forwards;
+    }
+    @keyframes fillBar { from{width:0} }
+    .fill-teal { background: var(--teal); }
+    .fill-amber { background: var(--amber); }
+    .fill-red { background: var(--red-alert); }
+    .risk-pct {
+      font-family: var(--font-mono);
+      font-size: .7rem; color: var(--text-muted);
+      width: 32px; text-align: right;
+    }
+
+    /* Floating badges */
+    .float-badge {
+      position: absolute;
+      background: var(--navy-2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: .6rem 1rem;
+      font-family: var(--font-mono);
+      font-size: .7rem;
+      display: flex; align-items: center; gap: .5rem;
+      z-index: 10;
+    }
+    .float-badge-1 { top: -20px; right: -20px; }
+    .float-badge-2 { bottom: -20px; left: -20px; }
+    .fb-icon { font-size: 1rem; }
+
+    /* ===== ABOUT ===== */
+    .about { padding: var(--section-pad) 0; }
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 5rem; align-items: center;
+    }
+
+    .about-cards-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    .about-feature-card {
+      background: var(--navy-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      transition: .3s;
+      position: relative;
+      overflow: hidden;
+    }
+    .about-feature-card::before {
+      content: '';
+      position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--teal), transparent);
+      opacity: 0; transition: .3s;
+    }
+    .about-feature-card:hover { border-color: rgba(0,229,195,.3); transform: translateY(-4px); }
+    .about-feature-card:hover::before { opacity: 1; }
+    .afc-icon {
+      font-size: 1.6rem; color: var(--teal);
+      margin-bottom: .75rem; display: block;
+    }
+    .afc-title {
+      font-size: .9rem; font-weight: 600; color: var(--white);
+      margin-bottom: .3rem;
+    }
+    .afc-desc { font-size: .78rem; color: var(--text-muted); line-height: 1.6; }
+
+    .about-text p {
+      font-size: .98rem; color: var(--text);
+      line-height: 1.9; margin-bottom: 1.5rem;
+    }
+    .about-text p strong { color: var(--teal); font-weight: 600; }
+
+    .tag-list { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1.5rem; }
+    .tag {
+      font-family: var(--font-mono);
+      font-size: .7rem; padding: .3rem .75rem;
+      border: 1px solid var(--border);
+      border-radius: 50px; color: var(--text-muted);
+      transition: .2s;
+    }
+    .tag:hover { color: var(--teal); border-color: var(--teal); }
+
+    /* ===== SKILLS ===== */
+    .skills { padding: var(--section-pad) 0; }
+    .skills-inner {
+      background: var(--navy-2);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 4rem;
+      position: relative; overflow: hidden;
+    }
+    .skills-inner::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--teal), var(--amber), var(--teal));
+    }
+
+    .skills-header {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 3rem; margin-bottom: 3rem;
+      align-items: end;
+    }
+
+    .skills-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+    }
+    .skill-item {
+      text-align: center;
+    }
+/* ===== SKILLS CIRLES FIX ===== */
+    .skill-circle {
+      position: relative;
+      width: 110px;  /* Match the SVG viewBox width perfectly */
+      height: 110px; /* Match the SVG viewBox height perfectly */
+      margin: 0 auto 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .skill-circle svg {
+      position: absolute; 
+      top: 0;
+      left: 0;
+      width: 100%; 
+      height: 100%;
+      transform: rotate(-90deg);
+    }
+    .skill-circle circle {
+      fill: none;
+      stroke-width: 7px; /* Matches your SVG inline attributes precisely */
+      stroke-linecap: round;
+    }
+    .circle-bg { stroke: rgba(0,229,195,.1); }
+    .circle-fg {
+      stroke: var(--teal);
+      stroke-dasharray: 339;
+      stroke-dashoffset: 339;
+    }
+    .circle-fg.amber { stroke: var(--amber); }
+    
+    .skill-circle-num {
+      position: absolute;
+      /* Eliminates absolute positioning drift by zeroing out coordinates */
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      display: flex; 
+      align-items: center; 
+      justify-content: center;
+      pointer-events: none;
+    }
+    .skill-pct {
+      font-family: var(--font-mono);
+      font-size: 1.2rem; 
+      font-weight: 600;
+      color: var(--white);
+      line-height: 1;
+    }
+    .skill-name {
+      font-size: .78rem; color: var(--text-muted);
+      line-height: 1.4; text-align: center;
+    }
+
+    /* ===== SERVICES ===== */
+    .services { padding: var(--section-pad) 0; }
+    .services-header { margin-bottom: 3rem; }
+    .services-header-inner {
+      display: flex; justify-content: space-between; align-items: flex-end;
+      flex-wrap: wrap; gap: 2rem;
+    }
+
+    .services-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+    .srv-card {
+      background: var(--navy-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2rem;
+      transition: .3s;
+      position: relative; overflow: hidden;
+      display: flex; flex-direction: column;
+    }
+    .srv-card::after {
+      content: '';
+      position: absolute; top: 0; left: 0; bottom: 0; width: 3px;
+      background: var(--teal);
+      opacity: 0; transition: .3s;
+    }
+    .srv-card:hover { border-color: rgba(0,229,195,.25); transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,.3); }
+    .srv-card:hover::after { opacity: 1; }
+
+    .srv-icon {
+      width: 48px; height: 48px;
+      background: var(--teal-glow);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem; color: var(--teal);
+      margin-bottom: 1.25rem;
+    }
+    .srv-card h3 {
+      font-size: 1rem; font-weight: 600; color: var(--white);
+      margin-bottom: .75rem;
+    }
+    .srv-card p {
+      font-size: .85rem; color: var(--text-muted); line-height: 1.8;
+      flex: 1;
+    }
+
+    .milestones-strip {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      margin-top: 3rem;
+      background: var(--navy-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .milestone-item {
+      padding: 2rem;
+      text-align: center;
+      border-right: 1px solid var(--border);
+    }
+    .milestone-item:last-child { border-right: none; }
+    .milestone-num {
+      font-family: var(--font-mono);
+      font-size: 2.2rem; color: var(--teal);
+      display: block; margin-bottom: .3rem;
+    }
+    .milestone-label {
+      font-size: .78rem; color: var(--text-muted);
+      text-transform: uppercase; letter-spacing: 1px;
+    }
+
+    /* ===== EXPERIENCE TIMELINE ===== */
+    .experience { padding: var(--section-pad) 0; }
+    .timeline {
+      position: relative; margin-top: 3rem;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute; left: 20px; top: 0; bottom: 0; width: 1px;
+      background: var(--border);
+    }
+    .timeline-item {
+      display: grid; grid-template-columns: 60px 1fr;
+      gap: 1.5rem; margin-bottom: 2rem;
+      position: relative;
+    }
+    .timeline-dot {
+      width: 40px; height: 40px;
+      background: var(--navy-2);
+      border: 2px solid var(--teal);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: .9rem; color: var(--teal);
+      flex-shrink: 0; z-index: 1;
+    }
+    .timeline-body {
+      background: var(--navy-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      transition: .3s;
+    }
+    .timeline-body:hover { border-color: rgba(0,229,195,.25); }
+    .timeline-meta {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      flex-wrap: wrap; gap: .5rem; margin-bottom: .75rem;
+    }
+    .timeline-title {
+      font-size: .98rem; font-weight: 600; color: var(--white);
+    }
+    .timeline-date {
+      font-family: var(--font-mono);
+      font-size: .7rem; color: var(--teal);
+      background: var(--teal-glow);
+      padding: .2rem .6rem; border-radius: 4px;
+    }
+    .timeline-company {
+      font-size: .8rem; color: var(--text-muted);
+      margin-bottom: 1rem;
+    }
+    .timeline-bullets {
+      list-style: none;
+    }
+    .timeline-bullets li {
+      font-size: .83rem; color: var(--text-muted);
+      line-height: 1.7;
+      padding-left: 1rem; position: relative;
+      margin-bottom: .3rem;
+    }
+    .timeline-bullets li::before {
+      content: '▹';
+      position: absolute; left: 0;
+      color: var(--teal); font-size: .7rem;
+    }
+
+    /* ===== PORTFOLIO ===== */
+    .portfolio { padding: var(--section-pad) 0; }
+    .portfolio-header { margin-bottom: 3rem; }
+
+    .filter-bar {
+      display: flex; gap: .5rem; flex-wrap: wrap;
+      margin-top: 1.5rem;
+    }
+    .filter-btn {
+      font-family: var(--font-mono);
+      font-size: .72rem; padding: .4rem 1rem;
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: 50px; color: var(--text-muted);
+      cursor: pointer; transition: .2s;
+    }
+    .filter-btn:hover, .filter-btn.active {
+      color: var(--teal); border-color: var(--teal);
+      background: var(--teal-glow);
+    }
+
+    .prt-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    .prt-card {
+      background: var(--navy-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden; transition: .3s;
+    }
+    .prt-card:hover { border-color: rgba(0,229,195,.3); transform: translateY(-6px); box-shadow: 0 16px 48px rgba(0,0,0,.4); }
+    .prt-card.hidden { display: none; }
+
+    .prt-image {
+      position: relative; overflow: hidden;
+      aspect-ratio: 16/9;
+      background: var(--navy-3);
+    }
+    .prt-image img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: .4s; display: block;
+    }
+    .prt-card:hover .prt-image img { transform: scale(1.05); }
+    .prt-overlay {
+      position: absolute; inset: 0;
+      background: rgba(0,229,195,.15);
+      backdrop-filter: blur(4px);
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; transition: .3s;
+    }
+    .prt-card:hover .prt-overlay { opacity: 1; }
+    .prt-link {
+      width: 44px; height: 44px;
+      background: var(--teal);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--navy); font-size: 1.1rem;
+      transform: scale(.7); transition: .3s;
+    }
+    .prt-card:hover .prt-link { transform: scale(1); }
+
+    .prt-body { padding: 1.25rem; }
+    .prt-type {
+      font-family: var(--font-mono);
+      font-size: .65rem; color: var(--teal);
+      text-transform: uppercase; letter-spacing: 1px;
+      margin-bottom: .3rem;
+    }
+    .prt-title {
+      font-size: .9rem; font-weight: 600; color: var(--white);
+      margin-bottom: .75rem;
+    }
+    .prt-btn {
+      font-family: var(--font-mono);
+      font-size: .7rem; color: var(--teal);
+      border: none; background: none; cursor: pointer;
+      padding: 0; transition: .2s;
+    }
+    .prt-btn:hover { opacity: .7; }
+
+    /* ===== CONTACT ===== */
+    .contact { padding: var(--section-pad) 0; }
+    .contact-inner {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 4rem; align-items: start;
+    }
+
+    .contact-info-items { margin: 2rem 0; }
+    .contact-info-item {
+      display: flex; align-items: center; gap: 1rem;
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--border);
+      transition: .2s;
+    }
+    .contact-info-item:hover .ci-icon { color: var(--teal); }
+    .ci-icon {
+      font-size: 1.2rem; color: var(--text-muted);
+      transition: .2s; flex-shrink: 0;
+    }
+    .ci-label {
+      font-size: .72rem; color: var(--text-muted);
+      text-transform: uppercase; letter-spacing: 1px;
+      font-family: var(--font-mono);
+    }
+    .ci-value {
+      font-size: .9rem; color: var(--white); font-weight: 500;
+    }
+
+    .social-links { display: flex; gap: .75rem; margin-top: 1.5rem; }
+    .social-link {
+      width: 42px; height: 42px;
+      background: var(--navy-2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem; color: var(--text-muted);
+      transition: .2s;
+    }
+    .social-link:hover { color: var(--teal); border-color: var(--teal); background: var(--teal-glow); }
+
+    .contact-form-wrap {
+      background: var(--navy-2);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 2.5rem;
+      position: relative; overflow: hidden;
+    }
+    .contact-form-wrap::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, var(--teal), var(--amber));
+    }
+    .form-title {
+      font-size: 1.1rem; font-weight: 600; color: var(--white);
+      margin-bottom: 1.5rem;
+    }
+    .form-group { margin-bottom: 1rem; }
+    .form-label {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: .7rem; color: var(--text-muted);
+      text-transform: uppercase; letter-spacing: 1px;
+      margin-bottom: .4rem;
+    }
+    .form-input, .form-textarea {
+      width: 100%;
+      background: var(--navy);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: .75rem 1rem;
+      font-family: var(--font-body);
+      font-size: .9rem; color: var(--white);
+      outline: none; transition: .2s;
+    }
+    .form-input:focus, .form-textarea:focus {
+      border-color: var(--teal);
+      box-shadow: 0 0 0 3px rgba(0,229,195,.1);
+    }
+    .form-textarea { resize: vertical; min-height: 120px; }
+    .form-input::placeholder, .form-textarea::placeholder { color: var(--text-muted); }
+    .form-submit {
+      width: 100%; padding: .85rem;
+      background: var(--teal);
+      color: var(--navy);
+      font-family: var(--font-body);
+      font-weight: 700; font-size: .9rem;
+      border: none; border-radius: 8px;
+      cursor: pointer; transition: .25s;
+      text-transform: uppercase; letter-spacing: 1px;
+      margin-top: .5rem;
+    }
+    .form-submit:hover { background: var(--teal-dim); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,229,195,.3); }
+
+    /* ===== FOOTER ===== */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem 0;
+    }
+    .footer-inner {
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 1rem;
+    }
+    .footer-logo {
+      font-family: var(--font-mono);
+      font-size: .9rem; color: var(--white);
+    }
+    .footer-logo span { color: var(--teal); }
+    .footer-copy {
+      font-family: var(--font-mono);
+      font-size: .72rem; color: var(--text-muted);
+    }
+
+    /* ===== ANIMATE ON SCROLL ===== */
+    .reveal {
+      opacity: 0; transform: translateY(30px);
+      transition: .7s ease;
+    }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 1024px) {
+      .hero-content { grid-template-columns: 1fr; gap: 3rem; }
+      .hero-visual { max-width: 500px; margin: 0 auto; }
+      .about-grid { grid-template-columns: 1fr; }
+      .skills-header { grid-template-columns: 1fr; }
+      .skills-grid { grid-template-columns: repeat(2, 1fr); gap: 2rem; }
+      .contact-inner { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 768px) {
+      :root { --section-pad: 4rem; }
+      .nav-links { display: none; }
+      .nav-links.open { display: flex; flex-direction: column; position: fixed; inset: 0; top: 80px; background: var(--navy-2); padding: 3rem 2rem; gap: 2rem; z-index: 99; }
+      .hamburger { display: flex; }
+      .services-grid { grid-template-columns: 1fr; }
+      .prt-grid { grid-template-columns: 1fr; }
+      .milestones-strip { grid-template-columns: 1fr; }
+      .milestone-item { border-right: none; border-bottom: 1px solid var(--border); }
+      .about-cards-grid { grid-template-columns: 1fr; }
+      .skills-inner { padding: 2rem; }
+      .hero-stats { flex-wrap: wrap; gap: 1.5rem; }
+      .float-badge-1, .float-badge-2 { display: none; }
+      footer .footer-inner { flex-direction: column; text-align: center; }
+    }
+
+    @media (max-width: 500px) {
+      .skills-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
 </head>
-
 <body>
 
-  <div class="overlay"></div>
+<!-- ===== HEADER ===== -->
+<header id="header">
+  <nav class="container">
+    <a href="#" class="logo">YEK<span>.</span></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#home" class="nav-link">Home</a></li>
+      <li><a href="#about" class="nav-link">About</a></li>
+      <li><a href="#skills" class="nav-link">Skills</a></li>
+      <li><a href="#experience" class="nav-link">Experience</a></li>
+      <li><a href="#portfolio" class="nav-link">Work</a></li>
+      <li><a href="#contact" class="nav-link">Contact</a></li>
+    </ul>
+    <a href="assets/CV/Youssef El - Kahky .pdf" download class="btn-primary nav-cta" style="display:none" id="navCta">Download CV</a>
+    <div class="hamburger" id="hamburger">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+</header>
 
-  <header>
-    <!-- --------- Navbar --------- -->
-    <nav class="container">
+<!-- ===== HERO ===== -->
+<section class="hero" id="home">
+  <div class="hero-bg-glow"></div>
+  <div class="hero-bg-glow2"></div>
+  <div class="container">
+    <div class="hero-content">
 
-      <a href="#" class="logo">Youssef <span>El-Kahky.</span></a>
-
-      <div class="links">
-
-        <ul>
-
-          <li>
-            <a href="#home" class="nav-link">Home</a>
-          </li>
-
-          <li>
-            <a href="#about" class="nav-link">About</a>
-          </li>
-
-          <li>
-            <a href="#services" class="nav-link">Services</a>
-          </li>
-
-          <li>
-            <a href="#portfolio" class="nav-link">Portfolio</a>
-          </li>
-
-          <li>
-            <a href="#contact" class="nav-link">Contact</a>
-          </li>
-
-        </ul>
-
-        <i class="uil uil-moon toggle-btn"></i>
-
+      <!-- Left: Text -->
+      <div class="hero-info">
+        <div class="hero-badge">
+          <span class="hero-badge-dot"></span>
+          Available for AML &amp; Fraud Analyst Roles
+        </div>
+        <h1 class="hero-title">
+          Detecting Fraud.<br>
+          <em>Protecting</em> the System.
+        </h1>
+        <p class="hero-desc">
+          AML &amp; Fraud Analyst with a rare edge: cybersecurity expertise, OSINT investigation skills, 
+          and behavioral pattern analysis — built to uncover financial crime before it happens.
+        </p>
+        <div class="hero-cta">
+          <a href="#portfolio" class="btn-primary"><i class="uil uil-eye"></i> View My Work</a>
+          <a href="assets/CV/Youssef El - Kahky .pdf" download class="btn-outline"><i class="uil uil-file-download-alt"></i> Download CV</a>
+        </div>
+        <div class="hero-stats">
+          <div>
+            <div class="hero-stat-num">3+</div>
+            <div class="hero-stat-label">Years Exp.</div>
+          </div>
+          <div>
+            <div class="hero-stat-num">20+</div>
+            <div class="hero-stat-label">Clients Served</div>
+          </div>
+          <div>
+            <div class="hero-stat-num">3.7</div>
+            <div class="hero-stat-label">GPA (A+)</div>
+          </div>
+          <div>
+            <div class="hero-stat-num">01T</div>
+            <div class="hero-stat-label">Software Eng.</div>
+          </div>
+        </div>
       </div>
 
-      <div class="hamburger">
+      <!-- Right: Terminal Card -->
+      <div class="hero-visual">
+        <div class="float-badge float-badge-1">
+          <span class="fb-icon">🛡️</span>
+          <span style="color:var(--teal);font-family:var(--font-mono);font-size:.68rem;">AML Certified</span>
+        </div>
+        <div class="float-badge float-badge-2">
+          <span class="fb-icon">🔍</span>
+          <span style="color:var(--amber);font-family:var(--font-mono);font-size:.68rem;">OSINT Specialist</span>
+        </div>
 
-        <div class="bar"></div>
-        <div class="bar"></div>
+        <div class="hero-card">
+          <div class="card-header">
+            <div class="card-dot d-red"></div>
+            <div class="card-dot d-yellow"></div>
+            <div class="card-dot d-green"></div>
+            <span style="font-family:var(--font-mono);font-size:.7rem;color:var(--text-muted);margin-left:.5rem;">fraud_detection.sh</span>
+          </div>
 
+          <div class="terminal-line"><span class="t-green">analyst@yek</span><span class="t-dim">:~$</span> <span class="t-teal">run</span> transaction-monitor --live</div>
+          <div class="terminal-line"><span class="t-amber">⚠</span>  Anomaly detected: txn #TXN-2024-9912</div>
+          <div class="terminal-line"><span class="t-green">✓</span>  Initiating OSINT profile lookup...</div>
+          <div class="terminal-line"><span class="t-red">✗</span>  Flagged: structuring pattern identified</div>
+          <div class="terminal-line"><span class="t-green">✓</span>  SAR filing recommended</div>
+          <div class="terminal-line"><span class="t-dim">_</span> <span class="cursor"></span></div>
+
+          <div class="risk-meters">
+            <div class="risk-item">
+              <div class="risk-label">Fraud Risk</div>
+              <div class="risk-bar"><div class="risk-fill fill-red" style="width:87%"></div></div>
+              <div class="risk-pct">87%</div>
+            </div>
+            <div class="risk-item">
+              <div class="risk-label">AML Score</div>
+              <div class="risk-bar"><div class="risk-fill fill-amber" style="width:74%"></div></div>
+              <div class="risk-pct">74%</div>
+            </div>
+            <div class="risk-item">
+              <div class="risk-label">OSINT Match</div>
+              <div class="risk-bar"><div class="risk-fill fill-teal" style="width:93%"></div></div>
+              <div class="risk-pct">93%</div>
+            </div>
+          </div>
+        </div>
       </div>
-
-    </nav>
-
-  </header>
-
-  <main>
-    <!-- --------- Showcase Area Section --------- -->
-    <section class="showcase-area" id="home">
-
-      <img src="assets/images/square1.png" alt="" class="shape square">
-
-      <div class="container">
-
-        <div class="showcase-info">
-
-          <h3 class="sub-heading">Marketing Manager | Technical SEO & Dev Expert</h3>
-          <h1 class="heading">Youssef Elkahky</h1>
-          <p class="text">
-                    I build full marketing ecosystems from strategy to execution. 
-                    My unique edge is leveraging **Front-End Development and Technical SEO skills 
-                    to deliver measurable, scalable growth and optimize every part of the funnel.
-          </p>
-
-          <div class="cta">
-            <a href="#portfolio" class="btn">View Marketing Case Studies</a>
-            <a href="assets/CV/Youssef El - Kahky .pdf.pdf" download
-              class="btn secondary-btn">Download CV</a>
-          </div>
-
-        </div>
-
-        <div class="showcase-image">
-          <img src="assets/images/12.png" alt="Yousef" class="person">
-          <img src="assets/images/circle1.png" alt="" class="shape circle">
-          <img src="assets/images/dots.png" alt="" class="shape dots">
-        </div>
-
-      </div>
-
-    </section>
-
-    <!-- --------- About Section --------- -->
-    <section class="about section" id="about">
-
-      <img src="assets/images/triangle.png" alt="" class="triangle">
-
-      <div class="container">
-
-        <div class="about-grid">
-
-          <div class="about-card">
-
-            <i class="uil uil-users-alt about-icon"></i>
-
-            <h3>Project Leadership</h3>
-
-          </div>
-
-          <div class="about-card">
-
-            <i class="uil uil-search about-icon"></i>
-
-            <h3>Technical SEO & Dev</h3>
-
-          </div>
-
-          <div class="about-card">
-
-            <i class="uil uil-chart-line about-icon"></i>
-
-            <h3>Data-Driven Strategy</h3>
-
-          </div>
-
-          <div class="about-card">
-
-            <i class="uil uil-lock-alt about-icon"></i>
-
-            <h3>Cybersecurity Audits</h3>
-
-          </div>
-
-        </div>
-
-        <div class="about-info">
-
-          <h3 class="sub-heading">About me</h3>
-          <h1 class="heading">Better Strategies,<br> Quantified Results</h1>
-            <p class="text">
-                I am a Marketing Manager with 4+ years of experience specializing in building and leading full marketing ecosystems for corporate clients. I define brand positioning, lead cross-functional teams, and focus on delivering measurable business growth.
-                <br><br>
-                My unique value lies in a strong technical foundation: I leverage expertise in Front-End Development, Technical SEO, and Cybersecurity to not only craft compelling strategies but also optimize the technical execution and security of digital assets for maximum conversion and trust.
-            </p>
-
-          <div class="cta">
-            <a href="#contact" class="btn">Contact me</a>
-            <a href="assets/CV/Youssef El - Kahky .pdf.pdf" download
-              class="btn secondary-btn">Download CV</a>
-          </div>
-
-        </div>
-
-      </div>
-
-      </div>
-
-    </section>
-
-    <!-- --------- Skills Section --------- -->
-    <section class="skills section">
-
-      <div class="container">
-
-        <div class="skills-box">
-
-          <div class="box-heading">
-
-            <h3 class="sub-heading">Core Competencies</h3>
-            <h1 class="heading">Strategy, Code, and Security</h1>
-
-            <div class="box-desc">
-
-              <p class="text">
-                As a Marketing Manager, my expertise is rooted in building and scaling digital growth using a unique blend of strategic leadership and technical proficiency. I bridge the gap between marketing goals and technical implementation, optimizing for performance with Front-End Development and protecting assets with Cybersecurity and Technical SEO know-how. I deliver data-driven results by ensuring every campaign is strategically sound and technically flawless.
-              </p>
-
-              <a href="#contact" class="btn">Let's Discuss Your Project</a>
-
-            </div>
-
-          </div>
-
-          <div class="skills-wrap">
-
-            <div class="skill">
-
-              <div class="sk-progress">
-
-                <svg>
-                  <circle cx="75" cy="75" r="68" />
-                </svg>
-                <h2 class="counter">
-                  <span data-target="85">0</span>%
-                </h2>
-
-              </div>
-
-              <div class="sk-title">Full-Funnel Marketing Strategy</div>
-
-            </div>
-
-            <div class="skill">
-
-              <div class="sk-progress">
-
-                <svg>
-                  <circle cx="75" cy="75" r="68" />
-                </svg>
-                <h2 class="counter">
-                  <span data-target="90">0</span>%
-                </h2>
-
-              </div>
-
-              <div class="sk-title">Advanced Market & Competitor Analysis</div>
-
-            </div>
-
-            <div class="skill">
-
-              <div class="sk-progress">
-
-                <svg>
-                  <circle cx="75" cy="75" r="68" />
-                </svg>
-                <h2 class="counter">
-                  <span data-target="75">0</span>%
-                </h2>
-
-              </div>
-
-              <div class="sk-title">Ads Management & Performance Optimization</div>
-
-            </div>
-
-            <div class="skill">
-
-              <div class="sk-progress">
-
-                <svg>
-                  <circle cx="75" cy="75" r="68" />
-                </svg>
-                <h2 class="counter">
-                  <span data-target="80">0</span>%
-                </h2>
-
-              </div>
-
-              <div class="sk-title">Cross-Platform Digital Campaign Leadership</div>
-
-            </div>
-
-            <div class="skill">
-
-              <div class="sk-progress">
-
-                <svg>
-                  <circle cx="75" cy="75" r="68" />
-                </svg>
-                <h2 class="counter">
-                  <span data-target="85">0</span>%
-                </h2>
-
-              </div>
-
-              <div class="sk-title">High-Conversion Copywriting & Messaging</div>
-
-            </div>
-
-            <div class="skill">
-
-              <div class="sk-progress">
-
-                <svg>
-                  <circle cx="75" cy="75" r="68" />
-                </svg>
-                <h2 class="counter">
-                  <span data-target="90">0</span>%
-                </h2>
-
-              </div>
-
-              <div class="sk-title">Front-End Development (HTML, CSS, JS) for Conversion</div>
-
-            </div>
-
-            <div class="skill">
-
-              <div class="sk-progress">
-
-                <svg>
-                  <circle cx="75" cy="75" r="68" />
-                </svg>
-                <h2 class="counter">
-                  <span data-target="60">0</span>%
-                </h2>
-
-              </div>
-
-              <div class="sk-title">Full-Stack Basics & Database Integration</div>
-
-            </div>
-
-            <div class="skill">
-
-              <div class="sk-progress">
-
-                <svg>
-                  <circle cx="75" cy="75" r="68" />
-                </svg>
-                <h2 class="counter">
-                  <span data-target="85">0</span>%
-                </h2>
-
-              </div>
-
-              <div class="sk-title">Technical SEO & Website Penetration Testing</div>
-
-            </div>
-
-          </div>
-
-          <img src="assets/images/dots.png" alt="" class="shape dots">
-          <img src="assets/images/square1.png" alt="" class="shape square">
-
-        </div>
-
-      </div>
-
-    </section>
-
-    <!-- --------- Services Section --------- -->
-    <section class="services section" id="services">
-
-      <img src="assets/images/triangle.png" alt="" class="shape triangle">
-
-      <div class="container">
-
-        <div class="services-info">
-
-          <h3 class="sub-heading">My Specialized Services</h3>
-          <h1 class="heading">Strategy, Execution, and Security</h1>
-          <p class="text">
-            I offer tailored, data-driven solutions by blending high-level marketing strategy with critical technical expertise. I build full marketing funnels, optimize digital performance using Technical SEO and Front-End skills, and protect your digital assets with cybersecurity best practices, ensuring profitable and sustainable growth.
-          </p>
-
-          <div class="milestones">
-
-            <div class="ml">
-
-              <h2 class="number"><span data-target="4">0</span>+</h2>
-              <h5>Years</h5>
-
-            </div>
-
-            <div class="ml">
-
-              <h2 class="number"><span data-target="30">0</span>+</h2>
-              <h5>Projects</h5>
-
-            </div>
-
-            <div class="ml">
-
-              <h2 class="number"><span data-target="25">0</span>+</h2>
-              <h5>Clients</h5>
-
-            </div>
-
-          </div>
-
-          <div class="cta">
-            <a href="#contact" class="btn">Hire Me</a>
-            <a href="assets/CV/Youssef El - Kahky .pdf.pdf" download
-              class="btn secondary-btn">Download CV</a>
-          </div>
-
-        </div>
-
-        <div class="services-grid">
-
-          <div class="srv-card">
-
-            <div class="card-desc">
-
-              <h3>Technical SEO & Front-End Development</h3>
-              <p class="text">
-                I design and develop high-conversion websites and landing pages optimized for speed, performance, and search engine ranking using HTML, CSS, and JavaScript, ensuring technical execution supports marketing goals.
-              </p>
-
-            </div>
-
-            <a href="#" class="btn secondary-btn">Explore More</a>
-
-          </div>
-
-          <div class="srv-card">
-
-            <div class="card-desc">
-
-              <h3>Full-Funnel Marketing Strategy</h3>
-              <p class="text">
-                I develop holistic strategies covering market research, brand positioning, messaging, and content planning. I focus on leading cross-functional teams to deliver measurable, sustainable business outcomes.
-              </p>
-
-            </div>
-
-            <a href="#" class="btn secondary-btn">Explore More</a>
-
-          </div>
-
-          <div class="srv-card">
-
-            <div class="card-desc">
-
-              <h3>Ad & Campaign Performance Optimization</h3>
-              <p class="text">
-                I oversee, manage, and optimize digital advertising campaigns (Meta) and conversion funnels, focusing intensely on reducing CPA/CPL and maximizing ROI through continuous data analysis.
-              </p>
-
-            </div>
-
-            <a href="#" class="btn secondary-btn">Explore More</a>
-
-          </div>
-
-          <div class="srv-card">
-
-            <div class="card-desc">
-
-              <h3>Website Penetration Testing & Security Audits</h3>
-              <p class="text">
-                I provide specialized consultancy to audit website security, conduct ethical penetration testing, and recommend robust solutions to protect user data and digital infrastructure, building client trust.
-              </p>  
-            </div>
-
-            <a href="#" class="btn secondary-btn">Explore More</a>
-
-          </div>
-
-          <img src="assets/images/square1.png" alt="" class="shape square">
-
-        </div>
-
-      </div>
-
-    </section>
-
-    <!-- --------- Portfolio Section --------- -->
-    <section class="portfolio section" id="portfolio">
-
-      <div class="modal">
-
-        <div class="modal-overlay">
-
-          <div class="slider-wrap">
-
-            <div class="prev-btn navigation">
-
-              <i class="uil uil-angle-left-b"></i>
-
-            </div>
-
-            <div class="images">
-
-              <img class="showImage" src="assets/images/port1.jpg">
-              <img src="assets/images/port2.png">
-              <img src="assets/images/port3.jpg">
-              <img src="assets/images/port4.png">
-              <img src="assets/images/port5.png">
-              <img src="assets/images/port6.jpg">
-
-            </div>
-
-            <div class="next-btn navigation">
-
-              <i class="uil uil-angle-right-b"></i>
-
-            </div>
-
-          </div>
-
-        </div>
-
-      </div>
-
-      <div class="container">
-
-        <div class="portfolio-header">
-
-          <div class="portfolio-title">
-
-            <h3 class="sub-heading">Client Case Studies & Technical Work</h3>
-            <h1 class="heading">Strategy, Code, and Quantified Results</h1>
-
-          </div>
-
-          <div class="filter-btns">
-            <div class="button filter-btn" data-filter="all">All</div>
-            <div class="button filter-btn" data-filter=".web">Technical Projects</div>
-            <div class="button filter-btn" data-filter=".marketing">Strategy & Campaigns</div>
-          </div>
-
-        </div>
-
-        <div class="portfolio-gallery">
-
-          <div class="mix prt-card web">
-
-            <div class="prt-image">
-
-              <img src="assets/P Pics//Orca Marketing Agency.png" alt="">
-
-              <div class="prt-overlay">
-
-                <a href="https://orca-bma.github.io/Orca-BMA/" class="prt-icon" target="_blank">
-
-                  <i class="uil uil-link-alt" style="--i: .15s"></i>
-
-                </a>
-
-              </div>
-
-            </div>
-
-            <div class="prt-desc">
-
-              <h3>Orca Marketing Agency</h3>
-              <a href="https://orca-bma.github.io/Orca-BMA/" class="btn secondary-btn sm" target="_blank">See
-                more</a>
-
-            </div>
-
-          </div>
-
-          <div class="mix prt-card web">
-
-            <div class="prt-image">
-
-              <img src="assets/P Pics/Game console project.png" alt="">
-
-              <div class="prt-overlay">
-
-                <a href="https://yousefelkahkyy.github.io/Game-Console/" class="prt-icon" target="_blank">
-
-                  <i class="uil uil-link-alt" style="--i: .15s"></i>
-
-                </a>
-
-              </div>
-
-            </div>
-
-            <div class="prt-desc">
-
-              <h3>Game Console Project</h3>
-              <a href="https://yousefelkahkyy.github.io/Game-Console/" class="btn secondary-btn sm" target="_blank">See
-                more</a>
-
-            </div>
-
-          </div>
-
-          <div class="mix prt-card web">
-
-            <div class="prt-image">
-
-              <img src="assets/P Pics/Restorant Website.png" alt="">
-
-              <div class="prt-overlay">
-
-                <a href="https://yousefelkahkyy.github.io/Restaurant-Website/" class="prt-icon" target="_blank">
-
-                  <i class="uil uil-link-alt" style="--i: .15s"></i>
-
-                </a>
-
-              </div>
-
-            </div>
-
-            <div class="prt-desc">
-
-              <h3>Restaurant Website</h3>
-              <a href="https://yousefelkahkyy.github.io/Restaurant-Website/" class="btn secondary-btn sm"
-                target="_blank">See more</a>
-
-            </div>
-
-          </div>
-
-          <div class="mix prt-card web">
-
-            <div class="prt-image">
-
-              <img src="assets/P Pics/Travel agancy.png" alt="">
-
-              <div class="prt-overlay">
-
-                <a href="https://yousefelkahkyy.github.io/Travel-Website/" class="prt-icon" target="_blank">
-
-                  <i class="uil uil-link-alt" style="--i: .15s"></i>
-
-                </a>
-
-              </div>
-
-            </div>
-
-            <div class="prt-desc">
-
-              <h3>Travel Agency</h3>
-              <a href="https://yousefelkahkyy.github.io/Travel-Website/" class="btn secondary-btn sm"
-                target="_blank">See more</a>
-
-            </div>
-
-          </div>
-
-          <div class="mix prt-card web">
-
-            <div class="prt-image">
-
-              <img src="assets/P Pics/Eldeep website.png" alt="">
-
-              <div class="prt-overlay">
-
-                <a href=" https://yousefelkahkyy.github.io/ElDeeb-/" class="prt-icon" target="_blank">
-
-                  <i class="uil uil-link-alt" style="--i: .15s"></i>
-
-                </a>
-
-              </div>
-
-            </div>
-
-            <div class="prt-desc">
-
-              <h3>El-Deeb website</h3>
-              <a href=" https://yousefelkahkyy.github.io/ElDeeb-/" class="btn secondary-btn sm" target="_blank">See
-                more</a>
-
-            </div>
-
-          </div>
-
-          <div class="mix prt-card web">
-
-            <div class="prt-image">
-
-              <img src="assets/P Pics/Aziz Website.png" alt="">
-
-              <div class="prt-overlay">
-
-                <a href="https://yousefelkahkyy.github.io/Aziz-Marketing-Agency/" class="prt-icon" target="_blank">
-
-                  <i class="uil uil-link-alt" style="--i: .15s"></i>
-
-                </a>
-
-              </div>
-
-            </div>
-
-            <div class="prt-desc">
-
-              <h3>Aziz Marketing Agency</h3>
-              <a href="https://yousefelkahkyy.github.io/Aziz-Marketing-Agency/" class="btn secondary-btn sm" target="_blank">See
-                more</a>
-
-            </div>
-
-          </div>
-
-          <div class="mix prt-card marketing">
-
-            <div class="prt-image">
-
-              <img src="assets/Marketing/Pics/Orca.png" alt="">
-
-              <div class="prt-overlay">
-
-                <a href="assets/Marketing/Orca Business Plan.pdf" target="_blank" class="prt-icon">
-
-                  <i class="uil uil-link-alt" style="--i: .15s"></i>
-
-                </a>
-
-              </div>
-
-            </div>
-
-            <div class="prt-desc">
-
-              <h3>Orca Business Plan</h3>
-              <a href="assets/Marketing/Orca Business Plan.pdf" target="_blank" class="btn secondary-btn sm">See more</a>
-
-            </div>
-
-          </div>
-
-          <div class="mix prt-card marketing">
-
-            <div class="prt-image">
-
-              <img src="assets/Marketing/Pics/Amoun Agro.jpg" alt="">
-
-              <div class="prt-overlay">
-
-                <a href="assets/Marketing/Amoun Agro - Presentation.pdf" target="_blank" class="prt-icon">
-
-                  <i class="uil uil-link-alt" style="--i: .15s"></i>
-
-                </a>
-
-              </div>
-
-            </div>
-
-            <div class="prt-desc">
-
-              <h3>Amoun Agro</h3>
-              <a href="assets/Marketing/Amoun Agro - Presentation.pdf" target="_blank" class="btn secondary-btn sm">See more</a>
-
-            </div>
-
-          </div>
-
-          <div class="mix prt-card marketing">
-
-            <div class="prt-image">
-
-              <img src="assets/Marketing/Pics/kiwi.jpg" alt="">
-
-              <div class="prt-overlay">
-
-                <a href="assets/Marketing/kiwi market Package .pdf" target="_blank" class="prt-icon">
-
-                  <i class="uil uil-link-alt" style="--i: .15s"></i>
-
-                </a>
-
-              </div>
-
-            </div>
-
-            <div class="prt-desc">
-
-              <h3>Kiwi Marketing Package</h3>
-              <a href="assets/Marketing/kiwi market Package .pdf" target="_blank" class="btn secondary-btn sm">See more</a>
-
-            </div>
-
-          </div>
-          
-          <div class="mix prt-card marketing">
-
-            <div class="prt-image">
-
-              <img src="assets/Marketing/Pics/Marketing Competitors Analysis .png" alt="">
-
-              <div class="prt-overlay">
-
-                <a href="assets/Marketing/DrAhmed Mabrouk (Full Marketing Plan) .pdf" target="_blank" class="prt-icon">
-
-                  <i class="uil uil-link-alt" style="--i: .15s"></i>
-
-                </a>
-
-              </div>
-
-            </div>
-
-            <div class="prt-desc">
-
-              <h3>DrAhmed Mabrouk Marketing Plan</h3>
-              <a href="assets/Marketing/DrAhmed Mabrouk (Full Marketing Plan) .pdf" target="_blank" class="btn secondary-btn sm">See more</a>
-
-            </div>
-
-          </div>
-
-          <div class="mix prt-card marketing">
-
-            <div class="prt-image">
-
-              <img src="assets/Marketing/Pics/Pavona .jpg" alt="">
-
-              <div class="prt-overlay">
-
-                <a href="assets/Marketing/Pavona furniture (Marketing Plan).pdf" class="prt-icon">
-
-                  <i class="uil uil-link-alt" style="--i: .15s"></i>
-
-                </a>
-
-              </div>
-
-            </div>
-
-            <div class="prt-desc">
-
-              <h3>Pavona Marketing Plan</h3>
-              <a href="assets/Marketing/Pavona furniture (Marketing Plan).pdf" class="btn secondary-btn sm">See more</a>
-
-            </div>
-
-          </div>
-
-          <div class="mix prt-card marketing">
-
-            <div class="prt-image">
-
-              <img src="assets/Marketing/Pics/English Tutor.jpg" alt="">
-
-              <div class="prt-overlay">
-
-                <a href="assets/Marketing/Business Model for English Tutor Academy.pdf" class="prt-icon">
-
-                  <i class="uil uil-link-alt" style="--i: .15s"></i>
-
-                </a>
-
-              </div>
-
-            </div>
-
-            <div class="prt-desc">
-
-              <h3>English Tutor Business Model</h3>
-              <a href="assets/Marketing/Business Model for English Tutor Academy.pdf" class="btn secondary-btn sm">See more</a>
-
-            </div>
-
-          </div>
-
-          <div class="mix prt-card marketing">
-
-            <div class="prt-image">
-
-              <img src="assets/Marketing/Pics/Marketing Competitors Analysis .png" alt="">
-
-              <div class="prt-overlay">
-
-                <a href="assets/Marketing/DrAhmed Mabrouk Market Research.pdf" target="_blank" class="prt-icon">
-
-                  <i class="uil uil-link-alt" style="--i: .15s"></i>
-
-                </a>
-
-              </div>
-
-            </div>
-
-            <div class="prt-desc">
-
-              <h3>DrAhmed Mabrouk Market Research</h3>
-              <a href="assets/Marketing/DrAhmed Mabrouk Market Research.pdf" target="_blank" class="btn secondary-btn sm">See more</a>
-
-            </div>
-
-          </div>
-
-          <div class="mix prt-card marketing">
-
-            <div class="prt-image">
-
-              <img src="assets/Marketing/Pics/GazzarTestingHub.jpg" alt="">
-
-              <div class="prt-overlay">
-
-                <a href="assets/Marketing/Gazzar Testing Hub Content Scripting.pdf" target="_blank" class="prt-icon">
-
-                  <i class="uil uil-link-alt" style="--i: .15s"></i>
-
-                </a>
-
-              </div>
-
-            </div>
-
-            <div class="prt-desc">
-
-              <h3>GazzarTestingHub Content Scripting</h3>
-              <a href="assets/Marketing/Gazzar Testing Hub Content Scripting.pdf" target="_blank" class="btn secondary-btn sm">See more</a>
-
-            </div>
-
-          </div>
-
-          <div class="mix prt-card marketing">
-
-            <div class="prt-image">
-
-              <img src="assets/Marketing/Pics/Console Main.png" alt="">
-
-              <div class="prt-overlay">
-
-                <a href="assets/Marketing/Apple Console (product marketing campaign and a go-to-market strategy) (College Project).pdf" class="prt-icon">
-
-                  <i class="uil uil-link-alt" style="--i: .15s"></i>
-
-                </a>
-
-              </div>
-
-            </div>
-
-            <div class="prt-desc">
-
-              <h3>Apple Console product marketing campaign</h3>
-              <a href="assets/Marketing/Apple Console (product marketing campaign and a go-to-market strategy) (College Project).pdf" class="btn secondary-btn sm">See more</a>
-
-            </div>
-
-          </div>
-
-          <div class="mix prt-card marketing">
-
-            <div class="prt-image">
-
-              <img src="assets/Marketing/Pics/kiwi.jpg" alt="">
-
-              <div class="prt-overlay">
-
-                <a href="assets/Marketing/KIWI Presentation .pdf" target="_blank" class="prt-icon">
-
-                  <i class="uil uil-link-alt" style="--i: .15s"></i>
-
-                </a>
-
-              </div>
-
-            </div>
-
-            <div class="prt-desc">
-
-              <h3>Kiwi Presentation</h3>
-              <a href="assets/Marketing/KIWI Presentation .pdf" target="_blank" class="btn secondary-btn sm">See more</a>
-
-            </div>
-
-          </div>
-
-          <div class="mix prt-card marketing">
-
-            <div class="prt-image">
-
-              <img src="assets/Marketing/Pics/myaseen.png" alt="">
-
-              <div class="prt-overlay">
-
-                <a href="assets/Marketing/Influencer Recommendation .pdf" class="prt-icon">
-
-                  <i class="uil uil-link-alt" style="--i: .15s"></i>
-
-                </a>
-
-              </div>
-
-            </div>
-
-            <div class="prt-desc">
-
-              <h3>Myaseen Influncer Recommendation</h3>
-              <a href="assets/Marketing/Influencer Recommendation .pdf" class="btn secondary-btn sm">See more</a>
-
-            </div>
-
-          </div>
-
-          <div class="mix prt-card marketing">
-
-            <div class="prt-image">
-
-              <img src="assets/Marketing/Pics/joyful Cookiz'.jpg" alt="">
-
-              <div class="prt-overlay">
-
-                <a href="assets/Marketing/JoyfulCookiz (Full Marketing Plan).pdf" class="prt-icon">
-
-                  <i class="uil uil-link-alt" style="--i: .15s"></i>
-
-                </a>
-
-              </div>
-
-            </div>
-
-            <div class="prt-desc">
-
-              <h3>JoyfulCookiz Full Marketing Plan</h3>
-              <a href="assets/Marketing/JoyfulCookiz (Full Marketing Plan).pdf" class="btn secondary-btn sm">See more</a>
-
-            </div>
-
-          </div>
-
-          <div class="mix prt-card marketing">
-
-            <div class="prt-image">
-
-              <img src="assets/Marketing/Pics/KUJA .jpg" alt="">
-
-              <div class="prt-overlay">
-
-                <a href="assets/Marketing/KUJA (CONTENT STRATEGY).pdf" class="prt-icon">
-
-                  <i class="uil uil-link-alt" style="--i: .15s"></i>
-
-                </a>
-
-              </div>
-
-            </div>
-
-            <div class="prt-desc">
-
-              <h3>KUJA CONTENT STRATEGY</h3>
-              <a href="assets/Marketing/KUJA (CONTENT STRATEGY).pdf" class="btn secondary-btn sm">See more</a>
-
-            </div>
-
-          </div>
-
-          <div class="mix prt-card marketing">
-
-            <div class="prt-image">
-
-              <img src="assets/Marketing/Pics/Butterfly.png" alt="">
-
-              <div class="prt-overlay">
-
-                <a href="assets/Marketing/Butterfly Marketing Strategy Mind Map.pdf" class="prt-icon">
-
-                  <i class="uil uil-link-alt" style="--i: .15s"></i>
-
-                </a>
-
-              </div>
-
-            </div>
-
-            <div class="prt-desc">
-
-              <h3>Butterfly Marketing Strategy</h3>
-              <a href="assets/Marketing/Butterfly Marketing Strategy Mind Map.pdf" class="btn secondary-btn sm">See more</a>
-
-            </div>
-
-          </div>
-
-          <div class="mix prt-card marketing">
-
-            <div class="prt-image">
-
-              <img src="assets/Marketing/Pics/myaseen.png" alt="">
-
-              <div class="prt-overlay">
-
-                <a href="assets/Marketing/MYASEEN (Marketing Strategy).pdf" class="prt-icon">
-
-                  <i class="uil uil-link-alt" style="--i: .15s"></i>
-
-                </a>
-
-              </div>
-
-            </div>
-
-            <div class="prt-desc">
-
-              <h3>Myaseen Marketing Strategy</h3>
-              <a href="assets/Marketing/MYASEEN (Marketing Strategy).pdf" class="btn secondary-btn sm">See more</a>
-
-            </div>
-
-          </div>
-
-          <div class="mix prt-card marketing">
-
-            <div class="prt-image">
-
-              <img src="assets/Marketing/Pics/Nazeef.jpg" alt="">
-
-              <div class="prt-overlay">
-
-                <a href="assets/Marketing/Nazzef (Marketing Campaign).pdf" class="prt-icon">
-
-                  <i class="uil uil-link-alt" style="--i: .15s"></i>
-
-                </a>
-
-              </div>
-
-            </div>
-
-            <div class="prt-desc">
-
-              <h3>Nazzef Marketing Campaign</h3>
-              <a href="assets/Marketing/Nazzef (Marketing Campaign).pdf" class="btn secondary-btn sm">See more</a>
-
-            </div>
-
-          </div>
-
-          <div class="mix prt-card marketing">
-
-            <div class="prt-image">
-
-              <img src="assets/Marketing/Pics/Ninet.jpg" alt="">
-
-              <div class="prt-overlay">
-
-                <a href="assets/Marketing/NINET (Marketing Plan).pdf" class="prt-icon">
-
-                  <i class="uil uil-link-alt" style="--i: .15s"></i>
-
-                </a>
-
-              </div>
-
-            </div>
-
-            <div class="prt-desc">
-
-              <h3>Ninet Marketing Plan</h3>
-              <a href="assets/Marketing/NINET (Marketing Plan).pdf" class="btn secondary-btn sm">See more</a>
-
-            </div>
-
-          </div>
-
-          <div class="mix prt-card marketing">
-
-            <div class="prt-image">
-
-              <img src="assets/Marketing/Pics/Old Street.jpg" alt="">
-
-              <div class="prt-overlay">
-
-                <a href="assets/Marketing/OLD STREE (Marketing Strategy ).pdf" class="prt-icon">
-
-                  <i class="uil uil-link-alt" style="--i: .15s"></i>
-
-                </a>
-
-              </div>
-
-            </div>
-
-            <div class="prt-desc">
-
-              <h3>Old Street Marketing Strategy</h3>
-              <a href="assets/Marketing/OLD STREE (Marketing Strategy ).pdf" class="btn secondary-btn sm">See more</a>
-
-            </div>
-
-          </div>
-
-          <div class="mix prt-card marketing">
-
-            <div class="prt-image">
-
-              <img src="assets/Marketing/Pics/Puffy & Fluffy.jpg" alt="">
-
-              <div class="prt-overlay">
-
-                <a href="assets/Marketing/puffy (Marketing Campaign).pdf" class="prt-icon">
-
-                  <i class="uil uil-link-alt" style="--i: .15s"></i>
-
-                </a>
-
-              </div>
-
-            </div>
-
-            <div class="prt-desc">
-
-              <h3>Puffy & Fluffy Marketing Campaign</h3>
-              <a href="assets/Marketing/puffy (Marketing Campaign).pdf" class="btn secondary-btn sm">See more</a>
-
-            </div>
-
-          </div>
-
-          <div class="mix prt-card marketing">
-
-            <div class="prt-image">
-
-              <img src="assets/Marketing/Pics/Nazeef.jpg" alt="">
-
-              <div class="prt-overlay">
-
-                <a href="assets/Marketing/Sales Script for NAZEEF.pdf" class="prt-icon">
-
-                  <i class="uil uil-link-alt" style="--i: .15s"></i>
-
-                </a>
-
-              </div>
-
-            </div>
-
-            <div class="prt-desc">
-
-              <h3>Nazzef Sales Script</h3>
-              <a href="assets/Marketing/Sales Script for NAZEEF.pdf" class="btn secondary-btn sm">See more</a>
-
-            </div>
-
-          </div>
-
-          <div class="mix prt-card marketing">
-
-            <div class="prt-image">
-
-              <img src="assets/Marketing/Pics/Butterfly.png" alt="">
-
-              <div class="prt-overlay">
-
-                <a href="assets/Marketing/Butterfly (Content Calender).pdf" class="prt-icon">
-
-                  <i class="uil uil-link-alt" style="--i: .15s"></i>
-
-                </a>
-
-              </div>
-
-            </div>
-
-            <div class="prt-desc">
-
-              <h3>Butterfly Content Calender</h3>
-              <a href="assets/Marketing/Butterfly (Content Calender).pdf" class="btn secondary-btn sm">See more</a>
-
-            </div>
-
-          </div>
-
-          <div class="mix prt-card marketing">
-
-            <div class="prt-image">
-
-              <img src="assets/Marketing/Pics/Mostafa Aziz.jpg" alt="">
-
-              <div class="prt-overlay">
-
-                <a href="assets/Marketing/Aziz Competitor Analysis.pdf" class="prt-icon">
-
-                  <i class="uil uil-link-alt" style="--i: .15s"></i>
-
-                </a>
-
-              </div>
-
-            </div>
-
-            <div class="prt-desc">
-
-              <h3>Aziz Competitor Analysis</h3>
-              <a href="assets/Marketing/Aziz Competitor Analysis.pdf" class="btn secondary-btn sm">See more</a>
-
-            </div>
-
-          </div>
-
-          <div class="mix prt-card marketing">
-
-            <div class="prt-image">
-
-              <img src="assets/Marketing/Pics/Marketing Competitors Analysis .png" alt="">
-
-              <div class="prt-overlay">
-
-                <a href="assets/Marketing/DrAhmed Mabrouk Content strategy.pdf" class="prt-icon">
-
-                  <i class="uil uil-link-alt" style="--i: .15s"></i>
-
-                </a>
-
-              </div>
-
-            </div>
-
-            <div class="prt-desc">
-
-              <h3>DrAhmed Mabrouk Content strategy</h3>
-              <a href="assets/Marketing/DrAhmed Mabrouk Content strategy.pdf" class="btn secondary-btn sm">See more</a>
-
-            </div>
-
-          </div>
-
-
-
-
-        </div>
-
-      </div>
-
-    </section>
-
-    <!-- --------- Contact Section --------- -->
-    <section class="contact section" id="contact">
-
-      <img src="assets/images/triangle.png" alt="" class="shape triangle">
-
-      <div class="container">
-
-        <img src="assets/images/square2.png" alt="" class="shape square">
-
-
-        <div class="contact-info">
-
-          <h3 class="sub-heading">Let's Connect</h3>
-          <h1 class="heading">Ready to Scale Your Growth?</h1>
-          <p class="text">
-            As a Marketing Manager with a strong technical foundation, I specialize in building full digital ecosystems that deliver quantifiable results. Whether you need a full marketing strategy, performance optimization via Technical SEO, or a website security audit, I'm ready to discuss your challenge and turn it into a scalable solution. Let's discuss your goals and create something amazing together!
-            <br>
-            📩 Reach out today, and let’s make it happen!
-          </p>
-          <a href="mailto:yousefelkahkyy@gmail.com" class="mail">Email : Youssefelkahkyy@gmail.com <i class="uil uil-arrow-right"></i> </a>
-          <br>
-          <a href="tel:01065296282" class="phone">Phone Number : 01065296282 <i class="uil uil-arrow-right"></i> </a>
-
-        </div>
-
-        <form action="mailto:youssefelkahyy@gmail.com" class="contact-form">
-
-          <h3>Schedule a Free Consultation</h3>
-          <input type="text" class="form-input" placeholder="Your Name" required>
-          <input type="email" class="form-input" placeholder="Your Email" required>
-          <textarea placeholder="Project Details" class="form-input" required></textarea>
-          <input type="submit" value="send" class="btn">
-
-        </form>
-
-      </div>
-
-    </section>
-
-
-  </main>
-
-  <!-- --------- Footer --------- -->
-
-  <footer>
-
-    <div class="container">
-
-      <a href="#" class="logo">Youssef <span>El-Kahky.</span></a>
-
-      <ul class="social-media">
-
-        <li>
-
-          <a href="https://www.facebook.com/yousef.elkahky.9" class="social-link" target="_blank"> <i
-              class="uil uil-facebook-f"></i> </a>
-
-        </li>
-
-        <li>
-
-          <a href="https://www.instagram.com/kahky12" class="social-link" target="_blank"> <i
-              class="uil uil-instagram"></i> </a>
-
-        </li>
-
-        <li>
-
-          <a href="www.linkedin.com/in/youssef-el-kahky" class="social-link" target="_blank"> <i
-              class="uil uil-linkedin-alt"></i> </a>
-
-        </li>
-
-      </ul>
 
     </div>
+  </div>
+</section>
 
-  </footer>
+<!-- ===== ABOUT ===== -->
+<section class="about" id="about">
+  <div class="container">
+    <div class="about-grid reveal">
 
+      <!-- Cards -->
+      <div class="about-cards-grid">
+        <div class="about-feature-card">
+          <i class="uil uil-shield-check afc-icon"></i>
+          <div class="afc-title">AML Compliance</div>
+          <div class="afc-desc">Core concepts in anti-money laundering, transaction monitoring, and regulatory frameworks</div>
+        </div>
+        <div class="about-feature-card">
+          <i class="uil uil-search-alt afc-icon"></i>
+          <div class="afc-title">OSINT Investigation</div>
+          <div class="afc-desc">Advanced open-source intelligence for digital footprint tracking and identity verification</div>
+        </div>
+        <div class="about-feature-card">
+          <i class="uil uil-bug afc-icon"></i>
+          <div class="afc-title">Penetration Testing</div>
+          <div class="afc-desc">Red teaming and ethical hacking — understanding how attackers operate in financial systems</div>
+        </div>
+        <div class="about-feature-card">
+          <i class="uil uil-chart-bar afc-icon"></i>
+          <div class="afc-title">Behavioral Analysis</div>
+          <div class="afc-desc">Data-driven detection of transactional anomalies, social engineering patterns, and fraud indicators</div>
+        </div>
+      </div>
 
+      <!-- Text -->
+      <div class="about-text">
+        <div class="section-tag">About Me</div>
+        <h2 class="section-title">The Analyst Who Thinks Like an Attacker</h2>
+        <p>
+          I'm <strong>Youssef El-Kahky</strong> — an AML &amp; Fraud Analyst candidate with a background that sets me apart: a 
+          marketing career built on deep behavioral analysis and OSINT research, fused with hands-on 
+          cybersecurity and penetration testing training.
+        </p>
+        <p>
+          Where most analysts see transactions, I see <strong>patterns, vectors, and vulnerabilities</strong>. 
+          My experience auditing high-volume user data, conducting red-team social engineering assessments, 
+          and leading cross-functional risk mitigation gives me a uniquely adversarial lens — 
+          exactly what's needed to stay ahead of sophisticated financial crime.
+        </p>
+        <p>
+          Bachelor's in Marketing from El-Mansoura University <strong>(GPA 3.7 · A+)</strong>, currently completing a Software Engineering Diploma at <strong>01-Talent (France)</strong>.
+        </p>
+        <div class="tag-list">
+          <span class="tag">AML Core Concepts</span>
+          <span class="tag">Risk Assessment</span>
+          <span class="tag">Social Engineering</span>
+          <span class="tag">Red Teaming</span>
+          <span class="tag">Linux / Kali</span>
+          <span class="tag">Technical Reporting</span>
+          <span class="tag">Secure Coding</span>
+          <span class="tag">Data Investigation</span>
+        </div>
+        <div style="margin-top:2rem; display:flex; gap:1rem; flex-wrap:wrap;">
+          <a href="#contact" class="btn-primary"><i class="uil uil-envelope"></i> Contact Me</a>
+          <a href="assets/CV/Youssef El - Kahky .pdf" download class="btn-outline"><i class="uil uil-file-alt"></i> Download CV</a>
+        </div>
+      </div>
 
+    </div>
+  </div>
+</section>
 
+<!-- ===== SKILLS ===== -->
+<section class="skills" id="skills">
+  <div class="container">
+    <div class="skills-inner reveal">
+      <div class="skills-header">
+        <div>
+          <div class="section-tag">Core Competencies</div>
+          <h2 class="section-title">Skills Built for Financial Crime Detection</h2>
+        </div>
+        <p class="section-desc">A rare blend of investigative, technical, and compliance skills — designed to detect, report, and prevent financial crime at every layer.</p>
+      </div>
 
+      <div class="skills-grid" id="skillsGrid">
+        <!-- Skills rendered by JS -->
+      </div>
+    </div>
+  </div>
+</section>
 
+<!-- ===== SERVICES ===== -->
+<section class="services" id="services">
+  <div class="container">
+    <div class="services-header reveal">
+      <div class="services-header-inner">
+        <div>
+          <div class="section-tag">What I Bring</div>
+          <h2 class="section-title">Core Capabilities</h2>
+        </div>
+        <p class="section-desc" style="max-width:400px;">Every skill sharpened for one mission: detecting and stopping financial crime.</p>
+      </div>
+    </div>
 
+    <div class="services-grid reveal">
+      <div class="srv-card">
+        <div class="srv-icon"><i class="uil uil-transaction"></i></div>
+        <h3>Transaction Monitoring & Anomaly Detection</h3>
+        <p>Identifying suspicious patterns in financial data using behavioral analysis and knowledge of fraud typologies including structuring, layering, and account takeover schemes.</p>
+      </div>
+      <div class="srv-card">
+        <div class="srv-icon"><i class="uil uil-search"></i></div>
+        <h3>OSINT & Digital Identity Investigation</h3>
+        <p>Advanced open-source intelligence to build comprehensive subject profiles, trace digital footprints, verify identities, and uncover hidden networks behind fraudulent activity.</p>
+      </div>
+      <div class="srv-card">
+        <div class="srv-icon"><i class="uil uil-shield-exclamation"></i></div>
+        <h3>Social Engineering & Phishing Analysis</h3>
+        <p>Deep understanding of social engineering mechanics used in financial cyber threats — from phishing campaigns to vishing attacks — enabling faster identification and response.</p>
+      </div>
+      <div class="srv-card">
+        <div class="srv-icon"><i class="uil uil-file-check-alt"></i></div>
+        <h3>AML Compliance & Risk Reporting</h3>
+        <p>Applying AML core concepts to assess risk, draft SAR-ready reports, and present data-driven compliance findings to stakeholders in a clear, actionable format.</p>
+      </div>
+    </div>
 
+    <div class="milestones-strip reveal">
+      <div class="milestone-item">
+        <span class="milestone-num" data-target="3">0</span>
+        <span class="milestone-label">Years of Experience</span>
+      </div>
+      <div class="milestone-item">
+        <span class="milestone-num" data-target="20">0</span>
+        <span class="milestone-label">Clients Managed</span>
+      </div>
+      <div class="milestone-item">
+        <span class="milestone-num" data-target="30">0</span>
+        <span class="milestone-label">Projects Delivered</span>
+      </div>
+    </div>
+  </div>
+</section>
 
+<!-- ===== EXPERIENCE ===== -->
+<section class="experience" id="experience">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-tag">Work History</div>
+      <h2 class="section-title">Experience & Education</h2>
+    </div>
 
+    <div class="timeline reveal">
 
+      <div class="timeline-item">
+        <div class="timeline-dot"><i class="uil uil-briefcase-alt"></i></div>
+        <div class="timeline-body">
+          <div class="timeline-meta">
+            <span class="timeline-title">Marketing Manager</span>
+            <span class="timeline-date">2024 – 2025</span>
+          </div>
+          <div class="timeline-company">Corporate Company · Full-time</div>
+          <ul class="timeline-bullets">
+            <li>Monitored and audited high-volume user data to identify behavioral anomalies and systemic risk patterns — directly transferable to transaction monitoring workflows.</li>
+            <li>Conducted OSINT-based competitive research to detect fraudulent trends and map industry vulnerabilities across digital channels.</li>
+            <li>Led cross-functional teams ensuring quality assurance, risk mitigation, and compliance with operational KPIs.</li>
+            <li>Delivered comprehensive data audits and analytical reports to 20+ key clients and senior stakeholders.</li>
+          </ul>
+        </div>
+      </div>
 
+      <div class="timeline-item">
+        <div class="timeline-dot"><i class="uil uil-lock-alt"></i></div>
+        <div class="timeline-body">
+          <div class="timeline-meta">
+            <span class="timeline-title">Ethical Hacking Instructor</span>
+            <span class="timeline-date">2024</span>
+          </div>
+          <div class="timeline-company">Student Club · Zagazig University</div>
+          <ul class="timeline-bullets">
+            <li>Designed and delivered penetration testing and cybersecurity workshops to engineering students.</li>
+            <li>Provided hands-on training in ethical hacking tools, red teaming methodologies, and social engineering mechanics.</li>
+          </ul>
+        </div>
+      </div>
 
+      <div class="timeline-item">
+        <div class="timeline-dot"><i class="uil uil-users-alt"></i></div>
+        <div class="timeline-body">
+          <div class="timeline-meta">
+            <span class="timeline-title">Vice President of Marketing</span>
+            <span class="timeline-date">2024</span>
+          </div>
+          <div class="timeline-company">Enactus Zagazig</div>
+          <ul class="timeline-bullets">
+            <li>Directed marketing operations, managing teams of 30+ and ensuring structured execution against measurable goals.</li>
+            <li>Built and delivered a structured training curriculum covering data strategy, task management, and team coordination.</li>
+          </ul>
+        </div>
+      </div>
 
+      <div class="timeline-item">
+        <div class="timeline-dot"><i class="uil uil-building"></i></div>
+        <div class="timeline-body">
+          <div class="timeline-meta">
+            <span class="timeline-title">Marketing Intern</span>
+            <span class="timeline-date">2023 · 40 Days</span>
+          </div>
+          <div class="timeline-company">Cairo Airport Company (CAC)</div>
+          <ul class="timeline-bullets">
+            <li>Gained exposure to corporate operations, Public Relations, and customer experience strategy in a high-compliance institutional environment.</li>
+          </ul>
+        </div>
+      </div>
 
+      <div class="timeline-item">
+        <div class="timeline-dot"><i class="uil uil-graduation-cap"></i></div>
+        <div class="timeline-body">
+          <div class="timeline-meta">
+            <span class="timeline-title">Bachelor of Marketing — GPA 3.7 / 4.0 (A+)</span>
+            <span class="timeline-date">Graduated 2025</span>
+          </div>
+          <div class="timeline-company">Faculty of Tourism & Hotels · El-Mansoura University</div>
+          <ul class="timeline-bullets">
+            <li>Strong academic foundation in consumer psychology, behavioral analysis, operational frameworks, and strategic market research.</li>
+          </ul>
+        </div>
+      </div>
 
+      <div class="timeline-item">
+        <div class="timeline-dot"><i class="uil uil-laptop-cloud"></i></div>
+        <div class="timeline-body">
+          <div class="timeline-meta">
+            <span class="timeline-title">Diploma in Software Engineering & Advanced Tech Solutions</span>
+            <span class="timeline-date">2025 – 2027</span>
+          </div>
+          <div class="timeline-company">01-Talent (France) · In Progress</div>
+          <ul class="timeline-bullets">
+            <li>Immersive 2-year curriculum covering full-stack development, algorithmic logic, data structures, and secure coding practices.</li>
+            <li>Project-based peer-to-peer engineering methodology building rigorous analytical problem-solving skills.</li>
+          </ul>
+        </div>
+      </div>
 
+    </div>
+  </div>
+</section>
 
-  <!-- JavaScript Files -->
+<!-- ===== PORTFOLIO ===== -->
+<section class="portfolio" id="portfolio">
+  <div class="container">
+    <div class="portfolio-header reveal">
+      <div class="section-tag">Work Samples</div>
+      <h2 class="section-title">Projects & Case Studies</h2>
+      <div class="filter-bar">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="web">Technical Projects</button>
+        <button class="filter-btn" data-filter="marketing">Strategy & Analysis</button>
+      </div>
+    </div>
 
-  <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
-  <script src="assets/Js/mixitup.min.js"></script>
-  <script src="assets/Js/Js.js"></script>
+    <div class="prt-grid reveal">
+
+      <div class="prt-card" data-type="web">
+        <div class="prt-image">
+          <img src="assets/P Pics/Orca Marketing Agency.png" alt="Orca Marketing Agency Website" onerror="this.style.display='none'">
+          <div class="prt-overlay">
+            <a href="https://yousefelkahkyy.github.io/ORCA-BMA/" target="_blank" class="prt-link"><i class="uil uil-external-link-alt"></i></a>
+          </div>
+        </div>
+        <div class="prt-body">
+          <div class="prt-type">Web Development</div>
+          <div class="prt-title">Orca Marketing Agency Website</div>
+          <a href="https://yousefelkahkyy.github.io/ORCA-BMA/" target="_blank" class="prt-btn">View Live →</a>
+        </div>
+      </div>
+
+      <div class="prt-card" data-type="web">
+        <div class="prt-image">
+          <img src="assets/P Pics/Game console project.png" alt="Game Console Project" onerror="this.style.display='none'">
+          <div class="prt-overlay">
+            <a href="https://yousefelkahkyy.github.io/Game-Console/" target="_blank" class="prt-link"><i class="uil uil-external-link-alt"></i></a>
+          </div>
+        </div>
+        <div class="prt-body">
+          <div class="prt-type">Web Development</div>
+          <div class="prt-title">Game Console Project</div>
+          <a href="https://yousefelkahkyy.github.io/Game-Console/" target="_blank" class="prt-btn">View Live →</a>
+        </div>
+      </div>
+
+      <div class="prt-card" data-type="web">
+        <div class="prt-image">
+          <img src="assets/P Pics/Restorant Website.png" alt="Restaurant Website" onerror="this.style.display='none'">
+          <div class="prt-overlay">
+            <a href="https://yousefelkahkyy.github.io/Restaurant-Website/" target="_blank" class="prt-link"><i class="uil uil-external-link-alt"></i></a>
+          </div>
+        </div>
+        <div class="prt-body">
+          <div class="prt-type">Web Development</div>
+          <div class="prt-title">Restaurant Website</div>
+          <a href="https://yousefelkahkyy.github.io/Restaurant-Website/" target="_blank" class="prt-btn">View Live →</a>
+        </div>
+      </div>
+
+      <div class="prt-card" data-type="web">
+        <div class="prt-image">
+          <img src="assets/P Pics/Travel agancy.png" alt="Travel Agency" onerror="this.style.display='none'">
+          <div class="prt-overlay">
+            <a href="https://yousefelkahkyy.github.io/Travel-Website/" target="_blank" class="prt-link"><i class="uil uil-external-link-alt"></i></a>
+          </div>
+        </div>
+        <div class="prt-body">
+          <div class="prt-type">Web Development</div>
+          <div class="prt-title">Travel Agency</div>
+          <a href="https://yousefelkahkyy.github.io/Travel-Website/" target="_blank" class="prt-btn">View Live →</a>
+        </div>
+      </div>
+
+      <div class="prt-card" data-type="web">
+        <div class="prt-image">
+          <img src="assets/P Pics/Eldeep website.png" alt="El-Deeb website" onerror="this.style.display='none'">
+          <div class="prt-overlay">
+            <a href="https://yousefelkahkyy.github.io/ElDeeb-/" target="_blank" class="prt-link"><i class="uil uil-external-link-alt"></i></a>
+          </div>
+        </div>
+        <div class="prt-body">
+          <div class="prt-type">Web Development</div>
+          <div class="prt-title">El-Deeb website</div>
+          <a href="https://yousefelkahkyy.github.io/ElDeeb-/" target="_blank" class="prt-btn">View Live →</a>
+        </div>
+      </div>
+
+      <div class="prt-card" data-type="web">
+        <div class="prt-image">
+          <img src="assets/P Pics/Aziz Website.png" alt="Aziz Marketing Agency" onerror="this.style.display='none'">
+          <div class="prt-overlay">
+            <a href="https://yousefelkahkyy.github.io/Aziz-Marketing-Agency/" target="_blank" class="prt-link"><i class="uil uil-external-link-alt"></i></a>
+          </div>
+        </div>
+        <div class="prt-body">
+          <div class="prt-type">Web Development</div>
+          <div class="prt-title">Aziz Marketing Agency</div>
+          <a href="https://yousefelkahkyy.github.io/Aziz-Marketing-Agency/" target="_blank" class="prt-btn">View Live →</a>
+        </div>
+      </div>
+
+      <div class="prt-card" data-type="marketing">
+        <div class="prt-image">
+          <img src="assets/Marketing/Pics/Orca.png" alt="Orca Business Plan" onerror="this.style.display='none'">
+          <div class="prt-overlay">
+            <a href="assets/Marketing/Orca Business Plan.pdf" target="_blank" class="prt-link"><i class="uil uil-external-link-alt"></i></a>
+          </div>
+        </div>
+        <div class="prt-body">
+          <div class="prt-type">Marketing Case Studies</div>
+          <div class="prt-title">Orca Business Plan</div>
+          <a href="assets/Marketing/Orca Business Plan.pdf" target="_blank" class="prt-btn">View Live →</a>
+        </div>
+      </div>
+
+      <div class="prt-card" data-type="marketing">
+        <div class="prt-image">
+          <img src="assets/Marketing/Pics/Amoun Agro.jpg" alt="Amoun Agro" onerror="this.style.display='none'">
+          <div class="prt-overlay">
+            <a href="assets/Marketing/Amoun Agro - Presentation.pdf" target="_blank" class="prt-link"><i class="uil uil-external-link-alt"></i></a>
+          </div>
+        </div>
+        <div class="prt-body">
+          <div class="prt-type">Marketing Case Studies</div>
+          <div class="prt-title">Amoun Agro</div>
+          <a href="assets/Marketing/Amoun Agro - Presentation.pdf" target="_blank" class="prt-btn">View Live →</a>
+        </div>
+      </div>
+
+      <div class="prt-card" data-type="marketing">
+        <div class="prt-image">
+          <img src="assets/Marketing/Pics/kiwi.jpg" alt="Kiwi Marketing Package" onerror="this.style.display='none'">
+          <div class="prt-overlay">
+            <a href="assets/Marketing/kiwi market Package .pdf" target="_blank" class="prt-link"><i class="uil uil-external-link-alt"></i></a>
+          </div>
+        </div>
+        <div class="prt-body">
+          <div class="prt-type">Marketing Case Studies</div>
+          <div class="prt-title">Kiwi Marketing Package</div>
+          <a href="assets/Marketing/kiwi market Package .pdf" target="_blank" class="prt-btn">View Live →</a>
+        </div>
+      </div>
+
+      <div class="prt-card" data-type="marketing">
+        <div class="prt-image">
+          <img src="assets/Marketing/Pics/Marketing Competitors Analysis .png" alt="DrAhmed Mabrouk Marketing Plan" onerror="this.style.display='none'">
+          <div class="prt-overlay">
+            <a href="assets/Marketing/DrAhmed Mabrouk (Full Marketing Plan) .pdf" target="_blank" class="prt-link"><i class="uil uil-external-link-alt"></i></a>
+          </div>
+        </div>
+        <div class="prt-body">
+          <div class="prt-type">Marketing Case Studies</div>
+          <div class="prt-title">DrAhmed Mabrouk Marketing Plan</div>
+          <a href="assets/Marketing/DrAhmed Mabrouk (Full Marketing Plan) .pdf" target="_blank" class="prt-btn">View Live →</a>
+        </div>
+      </div>
+
+      <div class="prt-card" data-type="marketing">
+        <div class="prt-image">
+          <img src="assets/Marketing/Pics/Pavona .jpg" alt="Pavona Marketing Plan" onerror="this.style.display='none'">
+          <div class="prt-overlay">
+            <a href="assets/Marketing/Pavona furniture (Marketing Plan).pdf" target="_blank" class="prt-link"><i class="uil uil-external-link-alt"></i></a>
+          </div>
+        </div>
+        <div class="prt-body">
+          <div class="prt-type">Marketing Case Studies</div>
+          <div class="prt-title">Pavona Marketing Plan</div>
+          <a href="assets/Marketing/Pavona furniture (Marketing Plan).pdf" target="_blank" class="prt-btn">View Live →</a>
+        </div>
+      </div>
+
+      <div class="prt-card" data-type="marketing">
+        <div class="prt-image">
+          <img src="assets/Marketing/Pics/English Tutor.jpg" alt="English Tutor Business Model" onerror="this.style.display='none'">
+          <div class="prt-overlay">
+            <a href="assets/Marketing/Business Model for English Tutor Academy.pdf" target="_blank" class="prt-link"><i class="uil uil-external-link-alt"></i></a>
+          </div>
+        </div>
+        <div class="prt-body">
+          <div class="prt-type">Marketing Case Studies</div>
+          <div class="prt-title">English Tutor Business Model</div>
+          <a href="assets/Marketing/Business Model for English Tutor Academy.pdf" target="_blank" class="prt-btn">View Live →</a>
+        </div>
+      </div>
+
+      <div class="prt-card" data-type="marketing">
+        <div class="prt-image">
+          <img src="assets/Marketing/Pics/Marketing Competitors Analysis .png" alt="DrAhmed Mabrouk Market Research" onerror="this.style.display='none'">
+          <div class="prt-overlay">
+            <a href="assets/Marketing/DrAhmed Mabrouk Market Research.pdf" target="_blank" class="prt-link"><i class="uil uil-external-link-alt"></i></a>
+          </div>
+        </div>
+        <div class="prt-body">
+          <div class="prt-type">Marketing Case Studies</div>
+          <div class="prt-title">DrAhmed Mabrouk Market Research</div>
+          <a href="assets/Marketing/DrAhmed Mabrouk Market Research.pdf" target="_blank" class="prt-btn">View Live →</a>
+        </div>
+      </div>
+
+      <div class="prt-card" data-type="marketing">
+        <div class="prt-image">
+          <img src="assets/Marketing/Pics/GazzarTestingHub.jpg" alt="GazzarTestingHub Content Scripting" onerror="this.style.display='none'">
+          <div class="prt-overlay">
+            <a href="assets/Marketing/Gazzar Testing Hub Content Scripting.pdf" target="_blank" class="prt-link"><i class="uil uil-external-link-alt"></i></a>
+          </div>
+        </div>
+        <div class="prt-body">
+          <div class="prt-type">Marketing Case Studies</div>
+          <div class="prt-title">GazzarTestingHub Content Scripting</div>
+          <a href="assets/Marketing/Gazzar Testing Hub Content Scripting.pdf" target="_blank" class="prt-btn">View Live →</a>
+        </div>
+      </div>
+
+      <div class="prt-card" data-type="marketing">
+        <div class="prt-image">
+          <img src="assets/Marketing/Pics/Console Main.png" alt="Apple Console product marketing campaign" onerror="this.style.display='none'">
+          <div class="prt-overlay">
+            <a href="assets/Marketing/Apple Console (product marketing campaign and a go-to-market strategy) (College Project).pdf" target="_blank" class="prt-link"><i class="uil uil-external-link-alt"></i></a>
+          </div>
+        </div>
+        <div class="prt-body">
+          <div class="prt-type">Marketing Case Studies</div>
+          <div class="prt-title">Apple Console Marketing Campaign</div>
+          <a href="assets/Marketing/Apple Console (product marketing campaign and a go-to-market strategy) (College Project).pdf" target="_blank" class="prt-btn">View Live →</a>
+        </div>
+      </div>
+
+      <div class="prt-card" data-type="marketing">
+        <div class="prt-image">
+          <img src="assets/Marketing/Pics/kiwi.jpg" alt="Kiwi Presentation" onerror="this.style.display='none'">
+          <div class="prt-overlay">
+            <a href="assets/Marketing/KIWI Presentation .pdf" target="_blank" class="prt-link"><i class="uil uil-external-link-alt"></i></a>
+          </div>
+        </div>
+        <div class="prt-body">
+          <div class="prt-type">Marketing Case Studies</div>
+          <div class="prt-title">Kiwi Presentation</div>
+          <a href="assets/Marketing/KIWI Presentation .pdf" target="_blank" class="prt-btn">View Live →</a>
+        </div>
+      </div>
+
+      <div class="prt-card" data-type="marketing">
+        <div class="prt-image">
+          <img src="assets/Marketing/Pics/myaseen.png" alt="Myaseen Influncer Recommendation" onerror="this.style.display='none'">
+          <div class="prt-overlay">
+            <a href="assets/Marketing/Influencer Recommendation .pdf" target="_blank" class="prt-link"><i class="uil uil-external-link-alt"></i></a>
+          </div>
+        </div>
+        <div class="prt-body">
+          <div class="prt-type">Marketing Case Studies</div>
+          <div class="prt-title">Myaseen Influencer Recommendation</div>
+          <a href="assets/Marketing/Influencer Recommendation .pdf" target="_blank" class="prt-btn">View Live →</a>
+        </div>
+      </div>
+
+      <div class="prt-card" data-type="marketing">
+        <div class="prt-image">
+          <img src="assets/Marketing/Pics/joyful Cookiz'.jpg" alt="JoyfulCookiz Full Marketing Plan" onerror="this.style.display='none'">
+          <div class="prt-overlay">
+            <a href="assets/Marketing/JoyfulCookiz (Full Marketing Plan).pdf" target="_blank" class="prt-link"><i class="uil uil-external-link-alt"></i></a>
+          </div>
+        </div>
+        <div class="prt-body">
+          <div class="prt-type">Marketing Case Studies</div>
+          <div class="prt-title">JoyfulCookiz Full Marketing Plan</div>
+          <a href="assets/Marketing/JoyfulCookiz (Full Marketing Plan).pdf" target="_blank" class="prt-btn">View Live →</a>
+        </div>
+      </div>
+
+      <div class="prt-card" data-type="marketing">
+        <div class="prt-image">
+          <img src="assets/Marketing/Pics/KUJA .jpg" alt="KUJA CONTENT STRATEGY" onerror="this.style.display='none'">
+          <div class="prt-overlay">
+            <a href="assets/Marketing/KUJA (CONTENT STRATEGY).pdf" target="_blank" class="prt-link"><i class="uil uil-external-link-alt"></i></a>
+          </div>
+        </div>
+        <div class="prt-body">
+          <div class="prt-type">Marketing Case Studies</div>
+          <div class="prt-title">KUJA Content Strategy</div>
+          <a href="assets/Marketing/KUJA (CONTENT STRATEGY).pdf" target="_blank" class="prt-btn">View Live →</a>
+        </div>
+      </div>
+
+      <div class="prt-card" data-type="marketing">
+        <div class="prt-image">
+          <img src="assets/Marketing/Pics/Butterfly.png" alt="Butterfly Marketing Strategy" onerror="this.style.display='none'">
+          <div class="prt-overlay">
+            <a href="assets/Marketing/Butterfly Marketing Strategy Mind Map.pdf" target="_blank" class="prt-link"><i class="uil uil-external-link-alt"></i></a>
+          </div>
+        </div>
+        <div class="prt-body">
+          <div class="prt-type">Marketing Case Studies</div>
+          <div class="prt-title">Butterfly Marketing Strategy</div>
+          <a href="assets/Marketing/Butterfly Marketing Strategy Mind Map.pdf" target="_blank" class="prt-btn">View Live →</a>
+        </div>
+      </div>
+
+      <div class="prt-card" data-type="marketing">
+        <div class="prt-image">
+          <img src="assets/Marketing/Pics/myaseen.png" alt="Myaseen Marketing Strategy" onerror="this.style.display='none'">
+          <div class="prt-overlay">
+            <a href="assets/Marketing/MYASEEN (Marketing Strategy).pdf" target="_blank" class="prt-link"><i class="uil uil-external-link-alt"></i></a>
+          </div>
+        </div>
+        <div class="prt-body">
+          <div class="prt-type">Marketing Case Studies</div>
+          <div class="prt-title">Myaseen Marketing Strategy</div>
+          <a href="assets/Marketing/MYASEEN (Marketing Strategy).pdf" target="_blank" class="prt-btn">View Live →</a>
+        </div>
+      </div>
+
+      <div class="prt-card" data-type="marketing">
+        <div class="prt-image">
+          <img src="assets/Marketing/Pics/Nazeef.jpg" alt="Nazzef Marketing Campaign" onerror="this.style.display='none'">
+          <div class="prt-overlay">
+            <a href="assets/Marketing/Nazzef (Marketing Campaign).pdf" target="_blank" class="prt-link"><i class="uil uil-external-link-alt"></i></a>
+          </div>
+        </div>
+        <div class="prt-body">
+          <div class="prt-type">Marketing Case Studies</div>
+          <div class="prt-title">Nazzef Marketing Campaign</div>
+          <a href="assets/Marketing/Nazzef (Marketing Campaign).pdf" target="_blank" class="prt-btn">View Live →</a>
+        </div>
+      </div>
+
+      <div class="prt-card" data-type="marketing">
+        <div class="prt-image">
+          <img src="assets/Marketing/Pics/Ninet.jpg" alt="Ninet Marketing Plan" onerror="this.style.display='none'">
+          <div class="prt-overlay">
+            <a href="assets/Marketing/NINET (Marketing Plan).pdf" target="_blank" class="prt-link"><i class="uil uil-external-link-alt"></i></a>
+          </div>
+        </div>
+        <div class="prt-body">
+          <div class="prt-type">Marketing Case Studies</div>
+          <div class="prt-title">Ninet Marketing Plan</div>
+          <a href="assets/Marketing/NINET (Marketing Plan).pdf" target="_blank" class="prt-btn">View Live →</a>
+        </div>
+      </div>
+
+      <div class="prt-card" data-type="marketing">
+        <div class="prt-image">
+          <img src="assets/Marketing/Pics/Old Street.jpg" alt="Old Street Marketing Strategy" onerror="this.style.display='none'">
+          <div class="prt-overlay">
+            <a href="assets/Marketing/OLD STREE (Marketing Strategy ).pdf" target="_blank" class="prt-link"><i class="uil uil-external-link-alt"></i></a>
+          </div>
+        </div>
+        <div class="prt-body">
+          <div class="prt-type">Marketing Case Studies</div>
+          <div class="prt-title">Old Street Marketing Strategy</div>
+          <a href="assets/Marketing/OLD STREE (Marketing Strategy ).pdf" target="_blank" class="prt-btn">View Live →</a>
+        </div>
+      </div>
+
+      <div class="prt-card" data-type="marketing">
+        <div class="prt-image">
+          <img src="assets/Marketing/Pics/Puffy & Fluffy.jpg" alt="Puffy & Fluffy Marketing Campaign" onerror="this.style.display='none'">
+          <div class="prt-overlay">
+            <a href="assets/Marketing/puffy (Marketing Campaign).pdf" target="_blank" class="prt-link"><i class="uil uil-external-link-alt"></i></a>
+          </div>
+        </div>
+        <div class="prt-body">
+          <div class="prt-type">Marketing Case Studies</div>
+          <div class="prt-title">Puffy & Fluffy Campaign</div>
+          <a href="assets/Marketing/puffy (Marketing Campaign).pdf" target="_blank" class="prt-btn">View Live →</a>
+        </div>
+      </div>
+
+      <div class="prt-card" data-type="marketing">
+        <div class="prt-image">
+          <img src="assets/Marketing/Pics/Nazeef.jpg" alt="Nazzef Sales Script" onerror="this.style.display='none'">
+          <div class="prt-overlay">
+            <a href="assets/Marketing/Sales Script for NAZEEF.pdf" target="_blank" class="prt-link"><i class="uil uil-external-link-alt"></i></a>
+          </div>
+        </div>
+        <div class="prt-body">
+          <div class="prt-type">Marketing Case Studies</div>
+          <div class="prt-title">Nazzef Sales Script</div>
+          <a href="assets/Marketing/Sales Script for NAZEEF.pdf" target="_blank" class="prt-btn">View Live →</a>
+        </div>
+      </div>
+
+      <div class="prt-card" data-type="marketing">
+        <div class="prt-image">
+          <img src="assets/Marketing/Pics/Butterfly.png" alt="Butterfly Content Calender" onerror="this.style.display='none'">
+          <div class="prt-overlay">
+            <a href="assets/Marketing/Butterfly (Content Calender).pdf" target="_blank" class="prt-link"><i class="uil uil-external-link-alt"></i></a>
+          </div>
+        </div>
+        <div class="prt-body">
+          <div class="prt-type">Marketing Case Studies</div>
+          <div class="prt-title">Butterfly Content Calendar</div>
+          <a href="assets/Marketing/Butterfly (Content Calender).pdf" target="_blank" class="prt-btn">View Live →</a>
+        </div>
+      </div>
+
+      <div class="prt-card" data-type="marketing">
+        <div class="prt-image">
+          <img src="assets/Marketing/Pics/Mostafa Aziz.jpg" alt="Aziz Competitor Analysis" onerror="this.style.display='none'">
+          <div class="prt-overlay">
+            <a href="assets/Marketing/Aziz Competitor Analysis.pdf" target="_blank" class="prt-link"><i class="uil uil-external-link-alt"></i></a>
+          </div>
+        </div>
+        <div class="prt-body">
+          <div class="prt-type">Marketing Case Studies</div>
+          <div class="prt-title">Aziz Competitor Analysis</div>
+          <a href="assets/Marketing/Aziz Competitor Analysis.pdf" target="_blank" class="prt-btn">View Live →</a>
+        </div>
+      </div>
+
+      <div class="prt-card" data-type="marketing">
+        <div class="prt-image">
+          <img src="assets/Marketing/Pics/Marketing Competitors Analysis .png" alt="DrAhmed Mabrouk Content strategy" onerror="this.style.display='none'">
+          <div class="prt-overlay">
+            <a href="assets/Marketing/DrAhmed Mabrouk Content strategy.pdf" target="_blank" class="prt-link"><i class="uil uil-external-link-alt"></i></a>
+          </div>
+        </div>
+        <div class="prt-body">
+          <div class="prt-type">Marketing Case Studies</div>
+          <div class="prt-title">DrAhmed Mabrouk Content Strategy</div>
+          <a href="assets/Marketing/DrAhmed Mabrouk Content strategy.pdf" target="_blank" class="prt-btn">View Live →</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== CONTACT ===== -->
+<section class="contact" id="contact">
+  <div class="container">
+    <div class="contact-inner reveal">
+
+      <div class="contact-info">
+        <div class="section-tag">Get In Touch</div>
+        <h2 class="section-title">Ready to Join Your Compliance Team</h2>
+        <p style="color:var(--text-muted);font-size:.95rem;line-height:1.8;margin-top:.5rem;">
+          I bring a rare combination of investigative instinct, cybersecurity expertise, and behavioral analysis 
+          to every financial crime challenge. If you're building an AML, fraud, or transaction monitoring team 
+          — let's talk.
+        </p>
+
+        <div class="contact-info-items">
+          <div class="contact-info-item">
+            <i class="uil uil-envelope ci-icon"></i>
+            <div>
+              <div class="ci-label">Email</div>
+              <a href="mailto:Youssefelkahkyy@gmail.com" class="ci-value">Youssefelkahkyy@gmail.com</a>
+            </div>
+          </div>
+          <div class="contact-info-item">
+            <i class="uil uil-phone ci-icon"></i>
+            <div>
+              <div class="ci-label">Phone</div>
+              <a href="tel:+201065296282" class="ci-value">+20 106 529 6282</a>
+            </div>
+          </div>
+          <div class="contact-info-item">
+            <i class="uil uil-map-marker ci-icon"></i>
+            <div>
+              <div class="ci-label">Location</div>
+              <span class="ci-value">New Cairo, Egypt</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="social-links">
+          <a href="https://www.linkedin.com/in/yousef-elkahky/" target="_blank" class="social-link" title="LinkedIn">
+            <i class="uil uil-linkedin-alt"></i>
+          </a>
+          <a href="https://github.com/YousefElkahkyy" target="_blank" class="social-link" title="GitHub">
+            <i class="uil uil-github-alt"></i>
+          </a>
+          <a href="https://www.facebook.com/yousef.elkahky.9" target="_blank" class="social-link" title="Facebook">
+            <i class="uil uil-facebook-f"></i>
+          </a>
+          <a href="https://www.instagram.com/kahky12" target="_blank" class="social-link" title="Instagram">
+            <i class="uil uil-instagram"></i>
+          </a>
+        </div>
+      </div>
+
+      <div class="contact-form-wrap">
+        <div class="form-title">Send a Message</div>
+        <form action="mailto:Youssefelkahkyy@gmail.com">
+          <div class="form-group">
+            <label class="form-label">Your Name</label>
+            <input type="text" class="form-input" placeholder="John Doe" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email Address</label>
+            <input type="email" class="form-input" placeholder="john@company.com" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Subject</label>
+            <input type="text" class="form-input" placeholder="AML Analyst Opportunity">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Message</label>
+            <textarea class="form-textarea" placeholder="Tell me about the role or opportunity..." required></textarea>
+          </div>
+          <button type="submit" class="form-submit">Send Message</button>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <a href="#" class="footer-logo">Youssef El-Kahky<span>.</span></a>
+      <span class="footer-copy">AML &amp; Fraud Analyst · New Cairo, Egypt</span>
+      <span class="footer-copy" style="font-size:.65rem;opacity:.5;">© 2026 Youssef El-Kahky. All rights reserved.</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ===== SCRIPTS ===== -->
+<script>
+  // ---- Skills Data ----
+  const skills = [
+    { name: 'AML Core Concepts', pct: 88, color: 'teal' },
+    { name: 'OSINT Investigation', pct: 90, color: 'teal' },
+    { name: 'Behavioral Pattern Analysis', pct: 85, color: 'teal' },
+    { name: 'Social Engineering Analysis', pct: 82, color: 'teal' },
+    { name: 'Penetration Testing', pct: 78, color: 'amber' },
+    { name: 'Risk Assessment', pct: 86, color: 'teal' },
+    { name: 'Technical Reporting', pct: 88, color: 'teal' },
+    { name: 'Linux / Kali Linux', pct: 75, color: 'amber' },
+  ];
+
+  const CIRCUMFERENCE = 2 * Math.PI * 50; // r=50
+
+  const grid = document.getElementById('skillsGrid');
+  skills.forEach(sk => {
+    const offset = CIRCUMFERENCE - (sk.pct / 100) * CIRCUMFERENCE;
+    grid.innerHTML += `
+      <div class="skill-item">
+        <div class="skill-circle">
+          <svg viewBox="0 0 110 110">
+            <circle class="circle-bg" cx="55" cy="55" r="50" stroke-width="7"/>
+            <circle class="circle-fg ${sk.color === 'amber' ? 'amber' : ''}" cx="55" cy="55" r="50" stroke-width="7"
+              style="stroke-dasharray:${CIRCUMFERENCE};stroke-dashoffset:${CIRCUMFERENCE}"
+              data-offset="${offset}"/>
+          </svg>
+          <div class="skill-circle-num">
+            <span class="skill-pct">${sk.pct}%</span>
+          </div>
+        </div>
+        <div class="skill-name">${sk.name}</div>
+      </div>`;
+  });
+
+  // ---- Animate circles cleanly using IntersectionObserver ----
+  function animateCircles() {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const c = entry.target;
+          
+          if (!c.dataset.animated) {
+            c.dataset.animated = '1';
+            c.style.transition = 'stroke-dashoffset 1.5s ease';
+            c.style.strokeDashoffset = c.dataset.offset;
+            
+            // Stop observing this element once it has animated
+            observer.unobserve(c);
+          }
+        }
+      });
+    }, { threshold: 0.1 });
+
+    // Find and observe every SVG foreground skill circle
+    document.querySelectorAll('.circle-fg').forEach(c => observer.observe(c));
+  }
+
+  // ---- Milestone Counters ----
+  function animateCounters() {
+    document.querySelectorAll('.milestone-num').forEach(el => {
+      if (el.dataset.animated) return;
+      const rect = el.getBoundingClientRect();
+      if (rect.top < window.innerHeight) {
+        el.dataset.animated = '1';
+        const target = parseInt(el.dataset.target);
+        let curr = 0;
+        const step = Math.ceil(target / 40);
+        const timer = setInterval(() => {
+          curr = Math.min(curr + step, target);
+          el.textContent = curr + '+';
+          if (curr >= target) clearInterval(timer);
+        }, 40);
+      }
+    });
+  }
+
+  // ---- Scroll Reveal ----
+  function revealOnScroll() {
+    document.querySelectorAll('.reveal').forEach(el => {
+      if (el.getBoundingClientRect().top < window.innerHeight - 80) {
+        el.classList.add('visible');
+      }
+    });
+  }
+
+  // ---- Navbar scroll & Listener Bindings ----
+  window.addEventListener('scroll', () => {
+    document.getElementById('header').classList.toggle('scrolled', window.scrollY > 50);
+    revealOnScroll();
+    animateCounters(); 
+    // note: animateCircles() is removed from scroll listener to avoid layout thrashing, 
+    // since the Observer now handles tracking natively!
+  });
+
+  // RUN THESE ON PAGE LOAD SO THEY TRIGGER AFTER DYNAMIC DOM INJECTION
+  setTimeout(() => {
+    revealOnScroll();
+    animateCircles();
+    animateCounters();
+  }, 100);
+
+  // ---- Active nav link ----
+  const sections = document.querySelectorAll('section[id]');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 200) current = s.id;
+    });
+    document.querySelectorAll('.nav-link').forEach(l => {
+      l.classList.toggle('active', l.getAttribute('href') === '#' + current);
+    });
+  });
+
+  // ---- Portfolio filter ----
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = btn.dataset.filter;
+      document.querySelectorAll('.prt-card').forEach(card => {
+        if (filter === 'all' || card.dataset.type === filter) {
+          card.classList.remove('hidden');
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+    });
+  });
+
+  // ---- Hamburger ----
+  const hamburger = document.getElementById('hamburger');
+  const navLinks = document.getElementById('navLinks');
+  hamburger.addEventListener('click', () => {
+    navLinks.classList.toggle('open');
+  });
+  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+
+  // ---- Show desktop nav CTA on scroll ----
+  window.addEventListener('scroll', () => {
+    document.getElementById('navCta').style.display = window.scrollY > 300 ? 'inline-flex' : 'none';
+  });
+</script>
+
 </body>
-
 </html>
